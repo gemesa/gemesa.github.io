@@ -8,4 +8,4 @@ I'm András Gémes, a professional embedded SW engineer and an enthusiast ethica
 For more information refer to:
 - [GitHub](https://github.com/gemesa)
 - [LinkedIn](https://www.linkedin.com/in/gemesa/)
-- [CV](https://github.com/gemesa/gemesa.github.io/xcv-en.pdf)
+- [CV](https://gemesa.github.io/assets/xcv-en.pdf)
