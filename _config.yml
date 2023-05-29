@@ -10,8 +10,6 @@ baseurl: /
 source: .
 destination: ./_site
 permalink: /:title
-paginate: 3
-paginate_path: /page/:num/
 
 defaults:
   -
@@ -24,7 +22,6 @@ defaults:
 future: true
 plugins:
   - jekyll-seo-tag
-  - jekyll-paginate
   - jekyll-sitemap
 
 # Custom variables

@@ -4,11 +4,10 @@ My [blog](https://gemesa.github.io/) is a fork of [Hacker-Blog](https://github.c
 
 ### Included
 
-1. Pagination
-2. SEO tags
-3. About Page
-4. Sitemap (`https://base-url/sitemap`)
-5. Google Analytics (optional)
+1. SEO tags
+2. About Page
+3. Sitemap (`https://base-url/sitemap`)
+4. Google Analytics (optional)
 
 ## Usage
 
@@ -24,10 +23,9 @@ If you want to see the changes before pushing the blog to Github, do a local bui
 
 1. [`gem install jekyll`](https://jekyllrb.com/docs/installation/#install-with-rubygems)
 2. `gem install jekyll-seo-tag`
-3. `gem install jekyll-paginate`
-4. `gem install jekyll-sitemap`
-5. (`cd` to the blog directory, then:) `jekyll serve --watch --port 8000`
-6. Go to `http://0.0.0.0:8000/` in your web browser.
+3. `gem install jekyll-sitemap`
+4. (`cd` to the blog directory, then:) `jekyll serve --watch --port 8000`
+5. Go to `http://0.0.0.0:8000/` in your web browser.
 
 *Note: In case you have set a `baseurl` different than `/` in `_config.yml`, go to `http://0.0.0.0:8000/BASEURL/` instead.*
 
@@ -60,7 +58,6 @@ author:
 
 baseurl: [The base url for this blog.]
 
-paginate: [Number of posts in one paginated section (default: 3)]
 owner: [Your name]
 year: [Current Year]
 ```
