@@ -1,18 +1,14 @@
-# The Hacker-Blog theme
+# Ethical hacker | developer blog
 
-*Hacker-Blog is a minimalistic, responsive jekyll theme built for hackers. It is based on the [hacker theme](https://github.com/pages-themes/hacker) for project pages.*
-
-Demo: [https://ashishchaudhary.in/hacker-blog](https://ashishchaudhary.in/hacker-blog)
+My blog is a fork of Hacker-Blog. Hacker-Blog is a minimalistic, responsive jekyll theme built for hackers. It is based on the [hacker theme](https://github.com/pages-themes/hacker) for project pages.
 
 ### Included
 
 1. Pagination
 2. SEO tags
-3. Archive Page
-4. About Page
-5. RSS (`https://base-url/atom`)
-6. Sitemap (`https://base-url/sitemap`)
-7. Google Analytics (optional)
+3. About Page
+4. Sitemap (`https://base-url/sitemap`)
+5. Google Analytics (optional)
 
 ## Usage
 
