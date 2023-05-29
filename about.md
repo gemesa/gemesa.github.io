@@ -3,4 +3,9 @@ layout: page
 title: About
 ---
 
-Something about me.
+I'm András Gémes, a professional embedded SW engineer and an enthusiast ethical hacker.
+
+For more information refer to:
+- [GitHub](https://github.com/gemesa)
+- [LinkedIn](https://www.linkedin.com/in/gemesa/)
+- [CV](https://github.com/gemesa/gemesa.github.io/xcv-en.pdf)
