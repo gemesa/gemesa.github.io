@@ -5,7 +5,7 @@ published: true
 
 # rustlink
 
-rustlink is a set of tools to program STM32 devices:
+[rustlink](https://github.com/gemesa/rustlink) is a set of tools to program STM32 devices:
 - `rst-info`: device information tool
 - `rst-flash`: programmer and flash manipulation tool
 
