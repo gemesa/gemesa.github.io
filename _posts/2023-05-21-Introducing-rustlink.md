@@ -1,5 +1,5 @@
 ---
-title: Introducing rustlink: a set of tools for STM32 programming
+title: Introducing rustlink
 published: true
 ---
 
