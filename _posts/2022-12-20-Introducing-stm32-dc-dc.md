@@ -76,8 +76,8 @@ Uncomment the control function and set the chosen output voltage in mV (for exam
 
 The following measurements illustrate the different working modes:
 
-![buck](https://github.com/gemesa/stm32-dc-dc/blob/main/Measurements/buck.png)
+![buck]({{site.baseurl}}/assets/buck.png)
 
-![mixed](https://github.com/gemesa/stm32-dc-dc/blob/main/Measurements/mixed.png)
+![mixed]({{site.baseurl}}/assets/mixed.png)
 
-![boost](https://github.com/gemesa/stm32-dc-dc/blob/main/Measurements/boost.png)
+![boost]({{site.baseurl}}/assets//boost.png)
