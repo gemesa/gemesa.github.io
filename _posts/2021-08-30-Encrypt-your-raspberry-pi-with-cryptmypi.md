@@ -50,7 +50,7 @@ Remove extra packages (I prefer to install everything I need later):
 export _PKGSINSTALL=""
 ```
 
-Choose ah ssh key (this will be used for remote unlocking):
+Choose an ssh key (this will be used for remote unlocking):
 ```
 export _SSH_LOCAL_KEYFILE="$_USER_HOME/.ssh/id_rsa_rpi"
 ```
