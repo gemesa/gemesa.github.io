@@ -1,5 +1,5 @@
 ---
-title: How to unbrick your OpenWRT router
+title: Unbrick your OpenWRT router
 published: true
 ---
 
