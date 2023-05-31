@@ -147,7 +147,7 @@ Wait for the script to finish:
 Goodbye from cryptmypi (4.11-beta).
 ```
 
-Plug the SD card into your RPi and power it up then ssh into it:
+Plug the SD card into your RPi and power it up then unlock it through ssh:
 
 ```
 $ ssh root@<your-rpi-ip> -i ~/.ssh/id_rsa_rpi -p 2222
@@ -155,6 +155,29 @@ Enter passphrase for key '/home/<username>/.ssh/id_rsa_rpi':
 Enter passphrase for /dev/disk/by-uuid/<your-uuid>: 
 Connection to <your-rpi-ip> closed.
 ```
+
+Wait for boot to finish then ssh into your Pi:
+
+```
+$ ssh root@<your-rpi-ip> -i ~/.ssh/id_rsa_rpi
+Linux <your-pi> 5.10.103-v7l+ #1529 SMP Tue Mar 8 12:24:00 GMT 2022 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Fri Jan 21 21:51:08 2022 from <your-last-ip>
+
+Wi-Fi is currently blocked by rfkill.
+Use raspi-config to set the country before use.
+
+root@<your-pi>:~#
+```
+
+I suggest you to generate a new ED25519 ssh key now and add it to your `/root/.ssh/authorized_keys` and/or `/home/pi/.ssh/authorized_keys` files, and remove the RSA one. Dropbear has an other `authorized_keys` file so it will still use the RSA key but this way you can harden your system a little bit. You can also remove the ssh key from the root `authorized_keys` and use only your pi user from now on.
+
 
 ## Gotcha 1:
 
