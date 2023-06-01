@@ -122,7 +122,7 @@ $ sudo airodump-ng wlp0s20f0u1
 
 ## Monitor_Mode and airodump-ng
 
-There is an other, more graceful way to set your adapter to monitor mode:
+There is an [other, more graceful way](https://github.com/morrownr/Monitor_Mode) to set your adapter to monitor mode:
 
 ```
 $ git clone https://github.com/morrownr/Monitor_Mode
@@ -174,23 +174,20 @@ Keep pressing enters to accept the default options or change the address, channe
 Open an other terminal and run `airodump-ng`:
 
 ```
-$ sudo airodump-ng wlp0s20f0u1  
-
- CH  3 ][ Elapsed: 12 s ][ 2023-03-09 16:44
+CH  9 ][ Elapsed: 0 s ][ 2023-03-09 17:09 
 
  BSSID              PWR  Beacons    #Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID
 
- XX:XX:XX:XX:XX:XX  -86       23        0    0   1  130   WPA2 CCMP   PSK  <essid>
- XX:XX:XX:XX:XX:XX  -96        2        0    0   1  130   WPA2 CCMP   PSK  <essid>
- XX:XX:XX:XX:XX:XX  -86        8        0    0   1  130   WPA2 CCMP   PSK  <essid>
+ XX:XX:XX:XX:XX:XX  -88        1        1    0  10  195   WPA2 CCMP   PSK  <essid>
+ XX:XX:XX:XX:XX:XX  -86        1        0    0   4  195   WPA2 CCMP   PSK  <essid>
 
  BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes
 
- (not associated)   XX:XX:XX:XX:XX:XX  -87    0 - 1     50        4                                
- (not associated)   XX:XX:XX:XX:XX:XX  -87    0 - 1     16        4                                                                 
+ XX:XX:XX:XX:XX:XX  XX:XX:XX:XX:XX:XX  -87    0 - 1      0        1                                                   
+ XX:XX:XX:XX:XX:XX  XX:XX:XX:XX:XX:XX  -81    0 - 1      0        1                                                               
 ```
 
-Close `airdump-ng` when you are finished and navigate back to the terminal where `start-mon.sh` is running. Press enter 2x and your adapter will return to the original settings. The previously stopped processes (NetworkManager, wpa_supplicant, etc.) are returned to normal state as well.
+Close `airdump-ng` when you are finished and navigate back to the terminal where `start-mon.sh` is running. Press enter 2x and your adapter will return to the original settings. The previously stopped processes (NetworkManager, wpa_supplicant etc.) are returned to normal state as well.
 
 ```
  Press any key to exit...
