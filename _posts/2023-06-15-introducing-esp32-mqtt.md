@@ -11,7 +11,6 @@ published: true
 - connect to local broker using ssl transport with PSK
 
 | Supported targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C6 | ESP32-H2 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | -------- | -------- |
 
 # ESP-MQTT SSL sample application (mutual authentication)
 
@@ -41,13 +40,13 @@ static void mqtt_app_start(void)
 
 ### Configure AWS IoT
 
-1. Create a simple thing (device) at https://aws.amazon.com/ and download the device certificate, device private key and server (root) certificate.
-2. Copy the content of the device certificate to `client.crt`, the content of the device private key to `client.key` and the content of the root certificate to `amazonaws.com.crt`.
-3. Add a custom rule which will republish from topic `esp32/sensors/temp` to `esp32/warn` if out temperature value is too high:
+- Create a simple thing (device) at https://aws.amazon.com/ and download the device certificate, device private key and server (root) certificate.
+- Copy the content of the device certificate to `client.crt`, the content of the device private key to `client.key` and the content of the root certificate to `amazonaws.com.crt`.
+- Add a custom rule which will republish from topic `esp32/sensors/temp` to `esp32/warn` if out temperature value is too high:
 
 ![AWS rule]({{site.baseurl}}/assets/aws-rule.png)
 
-4. Subscribe to topic `esp32/sensors/temp` and to topic `esp32/warn`:
+- Subscribe to topic `esp32/sensors/temp` and to topic `esp32/warn`:
 
 ![AWS MQTT test]({{site.baseurl}}/assets/aws-mqtt-test.png)
 
@@ -95,7 +94,6 @@ DATA={
 ![AWS MQTT warn]({{site.baseurl}}/assets/aws-mqtt-warn.png)
 
 | Supported targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C6 | ESP32-H2 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | -------- | -------- |
 
 # ESP-MQTT SSL example with PSK verification
 
