@@ -10,8 +10,6 @@ published: true
 - connect to AWS IoT broker using ssl transport with client certificate
 - connect to local broker using ssl transport with PSK
 
-| Supported targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C6 | ESP32-H2 | ESP32-S2 | ESP32-S3 |
-
 # ESP-MQTT SSL sample application (mutual authentication)
 
 This example connects to the AWS IoT broker using ssl transport with client certificate and as a demonstration subscribes/unsubscribes and sends a message on certain topic.
@@ -92,8 +90,6 @@ DATA={
 ![AWS MQTT temp]({{site.baseurl}}/assets/aws-mqtt-temp.png)
 
 ![AWS MQTT warn]({{site.baseurl}}/assets/aws-mqtt-warn.png)
-
-| Supported targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C6 | ESP32-H2 | ESP32-S2 | ESP32-S3 |
 
 # ESP-MQTT SSL example with PSK verification
 
