@@ -5,7 +5,7 @@ published: true
 
 # esp32-mqtt
 
-[esp32-mqtt](https://github.com/gemesa/esp32-mqtt) esp32-mqtt is a sandbox to explore the MQTT capabilities of the ESP32, for example:
+[esp32-mqtt](https://github.com/gemesa/esp32-mqtt) is a sandbox to explore the MQTT capabilities of the ESP32, for example:
 
 - connect to AWS IoT broker using ssl transport with client certificate
 - connect to local broker using ssl transport with PSK
