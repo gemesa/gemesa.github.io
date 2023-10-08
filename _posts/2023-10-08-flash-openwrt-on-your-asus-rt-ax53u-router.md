@@ -20,7 +20,7 @@ where:
 
 ### SW setup
 
-Set your PC IP to 192.168.1.2 (you can follow [this guide](https://www.trendnet.com/press/resource-library/how-to-set-static-ip-address).)
+Set your PC IP to 192.168.1.2 (you can follow [this guide](https://www.trendnet.com/press/resource-library/how-to-set-static-ip-address)).
 
 Set up a TFTP server on your PC (for this one I used Windows 11 but you can use Linux as well, see [my other guide](https://gemesa.dev/unbrick-your-tp-link-archer-c7-openwrt-router)):
 - download and install [Tftpd64](https://pjo2.github.io/tftpd64/)
