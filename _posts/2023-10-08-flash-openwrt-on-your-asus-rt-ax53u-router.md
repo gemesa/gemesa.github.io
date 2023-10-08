@@ -18,6 +18,8 @@ where:
     - to USB on the PC side
 - router power supply is connected to an outlet
 
+Note: I am using an [FT232RL](https://ftdichip.com/products/ft232rl/) based adapter.
+
 ### SW setup
 
 Set your PC IP to 192.168.1.2 (you can follow [this guide](https://www.trendnet.com/press/resource-library/how-to-set-static-ip-address)).
