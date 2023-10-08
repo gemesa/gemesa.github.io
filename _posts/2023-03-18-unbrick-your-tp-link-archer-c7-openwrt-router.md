@@ -1,5 +1,5 @@
 ---
-title: Unbrick your OpenWRT router
+title: Unbrick your TP-Link Archer C7 OpenWRT router
 published: true
 ---
 
