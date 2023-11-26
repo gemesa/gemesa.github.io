@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 
-I'm András Gémes, a professional embedded SW engineer and an enthusiast IoT hacker.
+I'm András Gémes, a professional embedded SW engineer and an enthusiastic IoT hacker.
 
 For more information refer to:
 - [CV]({{site.baseurl}}/assets/gemesa-cv-en.pdf)
