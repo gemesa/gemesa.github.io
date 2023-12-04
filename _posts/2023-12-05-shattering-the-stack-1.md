@@ -164,7 +164,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 ```
 
-Note: `stdbuf -o0` sets the stdout stream buffering mode to unbuffered. This necessary because without this the stdout was lost (stdout was empty after calling `proc.communicate()`).
+Note: `stdbuf -o0` sets the stdout stream buffering mode to unbuffered. This necessary because without this some of the stdout was lost (stdout was almost empty after calling `proc.communicate()`).
 
 Now our process is waiting for our password input so we can check the base address:
 
