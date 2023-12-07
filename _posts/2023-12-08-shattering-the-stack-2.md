@@ -220,7 +220,7 @@ drwxr-xr-x. 1 gemesa gemesa   108 Dec  6 19:32 target
 drwxr-xr-x. 1 gemesa gemesa    26 Nov 29 10:18 .vscode
 ```
 
-Note that with`gdb` the address of `buff` might be different so we need to regenerate our payloads with `payload.py`:
+Note that with `gdb` the address of `buff` might be different so we need to regenerate our payloads with `payload.py`:
 
 ```
 $ gdb build/bof-server-pie2
