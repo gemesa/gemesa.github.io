@@ -337,7 +337,6 @@ References:
 - https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/
 - http://0xdabbad00.com/2012/12/07/dep-data-execution-prevention-explanation/
 - https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
-- https://gemesa.dev/diving-into-shellcodes-0
 - https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/
 - https://github.com/microsoft/windows-rs
 - https://microsoft.github.io/windows-docs-rs/doc/windows/Win32/System/Memory/fn.VirtualAlloc.html
