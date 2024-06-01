@@ -95,7 +95,7 @@ Enter host password for user 'bitcoinrpc':
 ```
 
 References:
-- https://bitcoindev.network/running-a-bitcoin-node-on-synology-nas/
-- https://github.com/kylemanna/docker-bitcoind/blob/master/docs/config.md
-- https://developer.bitcoin.org/reference/rpc/index.html
-- https://www.blockchain.com/explorer
+- [https://bitcoindev.network/running-a-bitcoin-node-on-synology-nas/](https://bitcoindev.network/running-a-bitcoin-node-on-synology-nas/)
+- [https://github.com/kylemanna/docker-bitcoind/blob/master/docs/config.md](https://github.com/kylemanna/docker-bitcoind/blob/master/docs/config.md)
+- [https://developer.bitcoin.org/reference/rpc/index.html](https://developer.bitcoin.org/reference/rpc/index.html)
+- [https://www.blockchain.com/explorer](https://www.blockchain.com/explorer)
