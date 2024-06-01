@@ -195,4 +195,4 @@ Then calculate the address of `secret()` and pass our payload:
 `proc.communicate()` returns the stdout and stderr logs. As we can see `secret()` was called because we see `secret found!` in the output.
 
 References:
-- https://reverseengineering.stackexchange.com/questions/19598/find-base-address-and-memory-size-of-program-debugged-in-gdb
+- [https://reverseengineering.stackexchange.com/questions/19598/find-base-address-and-memory-size-of-program-debugged-in-gdb](https://reverseengineering.stackexchange.com/questions/19598/find-base-address-and-memory-size-of-program-debugged-in-gdb)

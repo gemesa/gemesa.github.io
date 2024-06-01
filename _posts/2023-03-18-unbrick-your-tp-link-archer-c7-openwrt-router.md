@@ -53,6 +53,6 @@ $ sudo systemctl stop tftp-server
 ```
 
 References:
-- https://openwrt.org/toh/tp-link/archer_c7
-- https://community.tp-link.com/en/home/forum/topic/81462
-- https://fedoramagazine.org/how-to-set-up-a-tftp-server-on-fedora/
+- [https://openwrt.org/toh/tp-link/archer_c7](https://openwrt.org/toh/tp-link/archer_c7)
+- [https://community.tp-link.com/en/home/forum/topic/81462](https://community.tp-link.com/en/home/forum/topic/81462)
+- [https://fedoramagazine.org/how-to-set-up-a-tftp-server-on-fedora/](https://fedoramagazine.org/how-to-set-up-a-tftp-server-on-fedora/)

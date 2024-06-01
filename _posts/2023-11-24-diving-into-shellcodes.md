@@ -334,11 +334,11 @@ Our messagebox will also pop up:
 ![messagebox]({{site.baseurl}}/assets/msf-msg.png)
 
 References:
-- https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/
-- http://0xdabbad00.com/2012/12/07/dep-data-execution-prevention-explanation/
-- https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
-- https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/
-- https://github.com/microsoft/windows-rs
-- https://microsoft.github.io/windows-docs-rs/doc/windows/Win32/System/Memory/fn.VirtualAlloc.html
-- https://doc.rust-lang.org/core/ptr/fn.copy_nonoverlapping.html
-- https://stackoverflow.com/questions/31492799/cross-compile-a-rust-application-from-linux-to-windows
+- [https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/](https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/)
+- [http://0xdabbad00.com/2012/12/07/dep-data-execution-prevention-explanation/](http://0xdabbad00.com/2012/12/07/dep-data-execution-prevention-explanation/)
+- [https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc)
+- [https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/](https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/)
+- [https://github.com/microsoft/windows-rs](https://github.com/microsoft/windows-rs)
+- [https://microsoft.github.io/windows-docs-rs/doc/windows/Win32/System/Memory/fn.VirtualAlloc.html](https://microsoft.github.io/windows-docs-rs/doc/windows/Win32/System/Memory/fn.VirtualAlloc.html)
+- [https://doc.rust-lang.org/core/ptr/fn.copy_nonoverlapping.html](https://doc.rust-lang.org/core/ptr/fn.copy_nonoverlapping.html)
+- [https://stackoverflow.com/questions/31492799/cross-compile-a-rust-application-from-linux-to-windows](https://stackoverflow.com/questions/31492799/cross-compile-a-rust-application-from-linux-to-windows)

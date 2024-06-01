@@ -331,5 +331,5 @@ $ cat /proc/35154/maps
 ```
 
 References:
-- https://github.com/muhammet-mucahit/Security-Exercises
-- https://lettieri.iet.unipi.it/hacking/aslr-pie.pdf
+- [https://github.com/muhammet-mucahit/Security-Exercises](https://github.com/muhammet-mucahit/Security-Exercises)
+- [https://lettieri.iet.unipi.it/hacking/aslr-pie.pdf](https://lettieri.iet.unipi.it/hacking/aslr-pie.pdf)

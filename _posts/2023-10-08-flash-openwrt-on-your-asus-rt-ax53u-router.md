@@ -168,5 +168,5 @@ Succeeded
 ```
 
 References:
-- https://openwrt.org/toh/asus/rt-ax53u
-- https://forum.openwrt.org/t/openwrt-support-for-asus-rt-ax53u/124053
+- [https://openwrt.org/toh/asus/rt-ax53u](https://openwrt.org/toh/asus/rt-ax53u)
+- [https://forum.openwrt.org/t/openwrt-support-for-asus-rt-ax53u/124053](https://forum.openwrt.org/t/openwrt-support-for-asus-rt-ax53u/124053)
