@@ -1,5 +1,5 @@
 ---
-title: Diving into shellcodes (0)
+title: Diving into shellcodes
 published: true
 ---
 
