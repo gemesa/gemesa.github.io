@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 
-I'm András Gémes, a professional embedded SW engineer and an enthusiastic malware analyst.
+My name is András Gémes, I am a professional embedded SW engineer with a passion for malware analysis.
 
 For more information refer to:
 - [CV]({{site.baseurl}}/assets/gemesa-cv-en.pdf)
