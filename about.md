@@ -10,4 +10,4 @@ For more information refer to:
 - [GitHub](https://github.com/gemesa)
 - [LinkedIn](https://www.linkedin.com/in/gemesa/)
 
-You can contact me via [andrasgemes@outlook.com](mailto:andrasgemes@outlook.com).
+You can contact me via [gemesa@protonmail.com](mailto:gemesa@protonmail.com).
