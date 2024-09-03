@@ -24,7 +24,7 @@ Note: I am using an [FT232RL](https://ftdichip.com/products/ft232rl/) based adap
 
 Set your PC IP to 192.168.1.2 (you can follow [this guide](https://www.trendnet.com/press/resource-library/how-to-set-static-ip-address)).
 
-Set up a TFTP server on your PC (for this one I used Windows 11 but you can use Linux as well, see [my other guide](https://gemesa.dev/unbrick-your-tp-link-archer-c7-openwrt-router)):
+Set up a TFTP server on your PC (for this one I used Windows 11 but you can use Linux as well, see [my other guide](https://shadowshell.io/unbrick-your-tp-link-archer-c7-openwrt-router)):
 - download and install [Tftpd64](https://pjo2.github.io/tftpd64/)
 - download the [OpenWRT image](https://downloads.openwrt.org/releases/22.03.5/targets/ramips/mt7621/openwrt-22.03.5-ramips-mt7621-asus_rt-ax53u-squashfs-factory.bin)
 - start the TFTP server
