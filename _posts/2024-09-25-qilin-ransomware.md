@@ -553,7 +553,7 @@ int mw_esxcfg(void)
 }
 ```
 
-These commands were copied from the following or similar pages:":
+These commands were copied from the following or similar pages:
 - [https://knowledge.broadcom.com/external/article/318028/vmfs6-heap-memory-exhaustion-on-vsphere.html](https://knowledge.broadcom.com/external/article/318028/vmfs6-heap-memory-exhaustion-on-vsphere.html)
 - [https://www.virten.net/2020/11/heads-up-vmfs6-heap-exhaustion-in-esxi-7-0/](https://www.virten.net/2020/11/heads-up-vmfs6-heap-exhaustion-in-esxi-7-0/)
 - [http://web.archive.org/web/20240520015714/https://knowledge.broadcom.com/external/article?legacyId=2052302](http://web.archive.org/web/20240520015714/https://knowledge.broadcom.com/external/article?legacyId=2052302)
