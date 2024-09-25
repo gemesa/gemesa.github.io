@@ -1458,6 +1458,8 @@ int mw_nftw_w(char **param_1)
 }
 ```
 
+`DAT_00553530` points to `NULL` so directories are not modified. `DAT_00553528` points to `mw_thpool_add_work_w()`, a wrapper around [thpool_add_work()](https://github.com/Pithikos/C-Thread-Pool/blob/master/thpool.c#L195C5-L195C20). `thpool_add_work()` takes a function pointer as a callback which handles the encryption (`FUN_00401f50()`).
+
 ```
                              switchD_004010e5::caseD_101                     XREF[2]:     004010e5(j), 004ea530(*)  
         004012a7 c6 85 a0        MOV        byte ptr [RBP + 0xa0], 0x1
@@ -1467,8 +1469,6 @@ int mw_nftw_w(char **param_1)
         004012ba e8 61 20        CALL       mw_log                                           undefined mw_log(undefined param
 
 ```
-
-`DAT_00553530` points to `NULL` so directories are not modified. `DAT_00553528` points to `mw_thpool_add_work_w()`, a wrapper around [thpool_add_work()](https://github.com/Pithikos/C-Thread-Pool/blob/master/thpool.c#L195C5-L195C20). `thpool_add_work()` takes a function pointer as a callback which handles the encryption (`FUN_00401f50()`).
 
 ```c
 undefined8 mw_nftw_callback(void *param_1,long param_2,int param_3)
