@@ -1038,9 +1038,10 @@ LAB_004016e9:
 `mw_clone_and_futex()` internally uses the `clone()` and `futex()` syscalls to create a child process and synchronize it with the parent.
 
 ```
-int mw_clone_and_futex(void)
-
-{
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined mw_clone_and_futex()
 ...
         004dcc62 b8 38 00        MOV        EAX, 0x38
         004dcc67 0f 05           SYSCALL
