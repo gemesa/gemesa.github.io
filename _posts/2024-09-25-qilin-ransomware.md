@@ -129,7 +129,7 @@ ERROR:capa: capa currently only supports analyzing executables for some operatin
 ERROR:capa:--------------------------------------------------------------------------------
 ```
 
-There are too many strings to be listed here but some relevant are shown below. We can assume based on these that the SW uses multithreading, encrypts files, has a usage info string, has paths hardcoded, executes ESXi commands, uses OpenSSL and possibly asymmetric encryption.
+There are too many strings to list here but some relevant ones are shown below. Based on these we can assume that the software uses multithreading, encrypts files, includes a usage information string, has hardcoded paths, executes ESXi commands and uses OpenSSL with possibly asymmetric encryption.
 
 ```
 $ strings qilin-esxi.elf
