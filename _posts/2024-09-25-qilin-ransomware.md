@@ -1606,6 +1606,3 @@ LAB_004016e9:
 ```
 
 There is a function that accesses `/etc/resolv.conf` but it is never called according to cross-references. I verified this with other static analysis tools like Binary Ninja confirming it is likely dead code. There may be other similar unused functions in the binary.
-
-References:
-- [https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin](https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin)
