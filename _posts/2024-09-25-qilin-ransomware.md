@@ -153,7 +153,7 @@ OPENSSL_init
 
 ### Ghidra
 
-After the initial analysis we can move to a more in-depth analysis using Ghidra. Please note that during the analysis some symbols (mainly functions) have been renamed, for example `FUN_00401d20()` --> `mw_print_usage()`. The binary is stripped so Ghidra gives names to symbols like `FUN_<address>`, `DAT_<address>` etc. after it runs its initial analysis. My personal preference is also to add the `mw_` prefix (meaning malware) to all of the functions so they can filtered and searched later more easily, and the `_w` suffix (meaning wrapper) to wrapper functions. If there are multiple wrapper levels `_ww` is used and so on.
+After the initial analysis we can move to a more in-depth analysis using Ghidra. Please note that during the analysis some symbols (mainly functions) have been renamed, for example `FUN_00401d20()` --> `mw_print_usage()`. The binary is stripped so Ghidra gives names to symbols like `FUN_<address>`, `DAT_<address>` etc. after it runs its initial analysis. My personal preference is also to add the `mw_` prefix (meaning malware) to all of the functions so they can be filtered and searched later more easily, and the `_w` suffix (meaning wrapper) to wrapper functions. If there are multiple wrapper levels `_ww` is used and so on.
 
 Since the binary has a lot of strings we can start with looking at them to see where and how these strings are used. Most (if not all) of them are located in `.rodata`.
 
@@ -554,9 +554,9 @@ int mw_esxcfg(void)
 ```
 
 These commands were copied from the following or similar pages:":
-- https://knowledge.broadcom.com/external/article/318028/vmfs6-heap-memory-exhaustion-on-vsphere.html
-- https://www.virten.net/2020/11/heads-up-vmfs6-heap-exhaustion-in-esxi-7-0/
-- http://web.archive.org/web/20240520015714/https://knowledge.broadcom.com/external/article?legacyId=2052302
+- [https://knowledge.broadcom.com/external/article/318028/vmfs6-heap-memory-exhaustion-on-vsphere.html](https://knowledge.broadcom.com/external/article/318028/vmfs6-heap-memory-exhaustion-on-vsphere.html)
+- [https://www.virten.net/2020/11/heads-up-vmfs6-heap-exhaustion-in-esxi-7-0/](https://www.virten.net/2020/11/heads-up-vmfs6-heap-exhaustion-in-esxi-7-0/)
+- [http://web.archive.org/web/20240520015714/https://knowledge.broadcom.com/external/article?legacyId=2052302](http://web.archive.org/web/20240520015714/https://knowledge.broadcom.com/external/article?legacyId=2052302)
 
 
 #### Parsing the configuration
@@ -1607,4 +1607,4 @@ LAB_004016e9:
 There is a function that accesses `/etc/resolv.conf` but it is never called according to cross-references. I verified this with other static analysis tools like Binary Ninja confirming it is likely dead code. There may be other similar unused functions in the binary.
 
 References:
-- https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin
+- [https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin](https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin)
