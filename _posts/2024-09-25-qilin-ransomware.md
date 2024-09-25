@@ -42,7 +42,7 @@ The binary is statically linked and the symbols are stripped:
 $ file qilin-esxi.elf
 qilin-esxi.elf: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
 ```
-When dumping the section names we can see the typical sections used by `gcc`. It is unusual though that the binary contains `.ctors` and `.dtors` instead of `.init_array` and `.fini_array` as [gcc 4.7.0](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=46770) should use `.init_array` and `.fini_array`. This may be a constrain of ESXi. The code might have been written in C++ or C/C++ since the section `.gcc_except_table` is present.
+When dumping the section names we can see the typical sections used by `gcc`. It is unusual though that the binary contains `.ctors` and `.dtors` instead of `.init_array` and `.fini_array` as [gcc 4.7.0 and later](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=46770) should use `.init_array` and `.fini_array`. This may be a constrain of ESXi. The code might have been written in C++ or C/C++ since the section `.gcc_except_table` is present.
 
 ```
 $ readelf -S qilin-esxi.elf 
