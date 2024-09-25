@@ -958,7 +958,7 @@ void mw_main(undefined4 param_1,undefined8 *param_2)
      *(long *)(piVar5 + 0x18) != 0)) {
 ...
 ```
-It then verifies if the provided password is correct. For dynamic analysis without the password, we could patch the if (`ret != 0`) check to allow the program to continue even with an incorrect password.
+It then verifies if the provided password is correct. For dynamic analysis without the password, we could patch the `if (ret != 0) {...}` check to allow the program to continue even with an incorrect password.
 
 ```c
 ...
