@@ -1826,6 +1826,8 @@ Process gone into background
 BFD: reopening /home/remnux/Downloads/qilin-esxi-patched.elf: No such file or directory
 (gdb)
 ```
+Breakpoint 2 is never hit which confirms that `FUN_004e52d3()` is never called.
+
 Finally, we can check what is written to `/etc/motd` which turns out to be the ransomware notes as expected.
 
 ```
