@@ -5,13 +5,13 @@ published: true
 
 ## Introduction
 
-The Qilin ransomware group (aka Agenda) was discovered in 2022, targeting enterprise systems including Windows, Linux and ESXi environments. They use different languages like C/C++, Rust and Go. Since ESXi is widely used in enterprise and cloud setups as a hypervisor, attacking it can cause a lot of damage quickly, making it easier to demand a ransom. You can find more details about them in this [detailed post](https://www.group-ib.com/blog/qilin-ransomware/).
+The Qilin ransomware group (aka Agenda) was discovered in 2022, targeting enterprise systems including Windows, Linux, ESXi and BSD environments. They use different languages like C/C++, Rust and Go. Since ESXi is widely used in enterprise and cloud setups as a hypervisor, attacking it can cause a lot of damage quickly, making it easier to demand a ransom. You can find more details about them in this [detailed post](https://www.group-ib.com/blog/qilin-ransomware/).
 
-In this post we will dive into reverse engineering a sample uploaded to [MalwareBazaar](https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin). We will stick to static analysis since Broadcom [ditched the free version of ESXi](https://knowledge.broadcom.com/external/article?legacyId=2107518).
+In this post we will dive into reverse engineering a sample uploaded to [MalwareBazaar](https://bazaar.abuse.ch/browse.php?search=signature%3Aqilin) which as we will see later supports Linux, ESXi and BSD. Since Broadcom [ditched the free version of ESXi](https://knowledge.broadcom.com/external/article?legacyId=2107518) we will stick to static analysis and dynamic analysis under Linux.
 
 ## Executive summary
 
-This Qilin ransomware variant is an advanced threat targeting ESXi, capable of encrypting large amounts of data through multi-threading and recursive file traversal. It executes ESXi commands to kill VMs and remove snapshots, ensuring that files are unlocked for encryption. The malware is highly configurable, parsing a range of command-line options for settings like paths, encryption delays and file exclusions. It uses 4096-bit RSA encryption via OpenSSL. The binary shows a clear intent to adapt to different environments and maximize damage, making it a serious threat.
+This Qilin ransomware variant is an advanced threat targeting Linux, ESXi and BSD, capable of encrypting large amounts of data through multi-threading and recursive file traversal. It detects the host OS and in the case of ESXi it not only encrypts files but also executes commands to kill VMs and remove snapshots, ensuring that files are unlocked for encryption. The malware is highly configurable, parsing a range of command-line options for settings like paths, encryption delays and file exclusions. It uses 4096-bit RSA encryption via OpenSSL. The binary shows a clear intent to adapt to different environments and maximize damage, making it a serious threat.
 
 ## Detailed analysis
 
@@ -151,7 +151,7 @@ OPENSSL_init
 ...
 ```
 
-### Ghidra
+### Static analysis (Ghidra)
 
 After the initial analysis we can move to a more in-depth analysis using Ghidra. Please note that during the analysis some symbols (mainly functions) have been renamed, for example `FUN_00401d20()` --> `mw_print_usage()`. The binary is stripped so Ghidra gives names to symbols like `FUN_<address>`, `DAT_<address>` etc. after it runs its initial analysis. My personal preference is also to add the `mw_` prefix (meaning malware) to all of the functions so they can be filtered and searched later more easily, and the `_w` suffix (meaning wrapper) to wrapper functions. If there are multiple wrapper levels `_ww` is used and so on.
 
@@ -958,7 +958,7 @@ void mw_main(undefined4 param_1,undefined8 *param_2)
      *(long *)(piVar5 + 0x18) != 0)) {
 ...
 ```
-It then verifies if the provided password is correct. For dynamic analysis without the password, we could patch the `if (ret != 0) {...}` check to allow the program to continue even with an incorrect password.
+It then verifies whether the provided password is correct. For dynamic analysis without the password, we will later patch the `if (ret != 0) {...}` check to allow the program to continue even with an incorrect password.
 
 ```c
 ...
@@ -1142,7 +1142,7 @@ long * mw_thpool_init(int param_1)
 ...
 ```
 
-The program writes the password to MOTD.
+The program likely writes the ransomware notes to MOTD as well. Based on the static analysis we can see that the password (which is part of the ransomware notes) is passed to the function but the ransomware notes string itself is neither passed nor referenced in `mw_write_motd()` (only in `mw_main()`). At first glance it is not obvious what exactly is written there but we will figure this out during dynamic analysis.
 
 ```c
 void mw_main(undefined4 param_1,undefined8 *param_2)
@@ -1164,6 +1164,15 @@ void mw_main(undefined4 param_1,undefined8 *param_2)
         mw_write_motd("/etc/motd",*(undefined8 *)(piVar5 + 0x24));
       }
 ```
+
+```
+                             s_sword:_004e9c06                               XREF[2,1]:   mw_main:0040142c(R), 
+                             s_--_Qilin_Your_network/system_was_004e9700                  mw_main:00401433(*), 
+                                                                                          mw_main:00401442(R)  
+        004e9700 2d 2d 20        ds         "-- Qilin \r\n\r\nYour network/system was encr
+
+```
+
 The `mw_write_motd()` function calls [fopen()](https://man7.org/linux/man-pages/man3/fopen.3.html) based on the arguments passed to it.
 
 ```
@@ -1605,4 +1614,253 @@ LAB_004016e9:
 
 ```
 
-There is a function that accesses `/etc/resolv.conf` but it is never called according to cross-references. I verified this with other static analysis tools like Binary Ninja confirming it is likely dead code. There may be other similar unused functions in the binary.
+There is also a function that accesses `/etc/resolv.conf` but it is never called according to cross-references. I verified this with other static analysis tools like Binary Ninja confirming it is likely dead code. There may be other similar unused functions in the binary.
+
+### Dynamic analysis
+
+During static analysis we already uncovered the capabilities of the malware so now we will focus on filling in the blanks:
+
+- check what is being written to `/etc/motd` exactly
+- check if `/etc/resolv.conf` is being accessed
+
+As we saw earlier without the proper password we cannot run the binary. Fortunately patching the password check is simple as we only need to patch a jump instruction:
+
+```c
+      ret = FUN_004d93d0(*(undefined8 *)(piVar5 + 0x1a),uVar6,0x20);
+      if (ret != 0) {
+        mw_log(0,"Password is not correct!\n");
+        mw_free(uVar6);
+        FUN_00401ba0(piVar5);
+                    /* WARNING: Subroutine does not return */
+        mw_exit(1);
+      }
+      mw_free(uVar6);
+      lVar8 = mw_strlen
+```
+
+```
+        00401391 48 8b 7d 68     MOV        RDI, qword ptr [RBP + 0x68]
+        00401395 ba 20 00        MOV        EDX, 0x20
+        0040139a 4c 89 e6        MOV        RSI, R12
+        0040139d e8 2e 80        CALL       FUN_004d93d0                                     undefined FUN_004d93d0()
+        004013a2 85 c0           TEST       ret, ret
+        004013a4 74 40           JZ         LAB_004013e6
+        004013a6 be 33 9e        MOV        ESI, s_Password_is_not_correct!_004e9e33         = "Password is not correct!\n"
+        004013ab 31 c0           XOR        ret, ret
+        004013ad 31 ff           XOR        EDI, EDI
+        004013af e8 6c 1f        CALL       mw_log                                           undefined mw_log(undefined param
+        004013b4 4c 89 e7        MOV        RDI, R12
+        004013b7 e8 9d 90        CALL       mw_free                                          undefined mw_free()
+        004013bc 48 89 ef        MOV        RDI, RBP
+        004013bf e8 dc 07        CALL       FUN_00401ba0                                     undefined FUN_00401ba0()
+        004013c4 bf 01 00        MOV        EDI, 0x1
+        004013c9 e8 1b a4        CALL       mw_exit                                          undefined mw_exit()
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+...
+                             LAB_004013e6                                    XREF[1]:     004013a4(j)  
+        004013e6 4c 89 e7        MOV        RDI, R12
+        004013e9 e8 6b 90        CALL       mw_free                                          undefined mw_free()
+        004013ee 48 8b bd        MOV        RDI, qword ptr [RBP + 0xb0]
+        004013f5 e8 66 7d        CALL       mw_strlen                                        undefined mw_strlen(void * str)
+```
+
+We need to replace:
+
+```
+        004013a4 74 40           JZ         LAB_004013e6
+```
+
+with:
+
+```
+        004013a4 75 40           JNZ        LAB_004013e6
+```
+
+Then we can execute the malware with any choosen password.
+
+If we check where `/etc/resolv.conf` is used in the code we can see it is passed as an argument to a `stat()` syscall for example:
+
+```
+        004e52ea 48 8d b4        LEA        RSI=>local_128, [RSP + 0x90]
+        004e52f2 48 8d 3d        LEA        RDI, [s_/etc/resolv.conf_00527150]               = "/etc/resolv.conf"
+        004e52f9 e8 d3 ef        CALL       FUN_004d42d1                                     undefined FUN_004d42d1()
+
+```
+```
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined FUN_004d42d1()
+             undefined         AL:1           <RETURN>
+                             FUN_004d42d1                                    XREF[4]:     mw_do_nftw:004052d0(c), 
+                                                                                          FUN_00491576:004917bc(c), 
+                                                                                          FUN_004e52d3:004e52f9(c), 
+                                                                                          0054a6f0(*)  
+        004d42d1 41 54           PUSH       R12
+        004d42d3 49 89 f0        MOV        R8, RSI
+        004d42d6 b8 04 00        MOV        EAX, 0x4
+        004d42db 48 81 ec        SUB        RSP, 0x90
+        004d42e2 48 89 e6        MOV        RSI, RSP
+        004d42e5 0f 05           SYSCALL
+
+```
+So if we log the syscalls we can look for `/etc/resolv.conf` and `stat()` calls in the log:
+
+```
+$ strace -e trace=all -f ./qilin-esxi-patched.elf -y --path test/ --password 123 > strace.log 2>&1
+$ grep resolv strace.log
+$ grep stat\( strace.log 
+[pid  4019] fstat(3,  <unfinished ...>
+[pid  4015] fstat(4,  <unfinished ...>
+[pid  4015] fstat(4, {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0
+[pid  4015] fstat(5,  <unfinished ...>
+[pid  4019] fstat(3, {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+[pid  4019] fstat(3, {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+```
+They are not present so it looks like the `/etc/resolv.conf` related functions are indeed dead code.
+
+We can check it with `gdb` as well to be sure. First we need to identify the function where `/etc/resolv.conf` is accessed and the entry point of the executable:
+
+```c
+void FUN_004e52d3(void)
+
+{
+...
+  
+  if (DAT_0055f4a8 == (code *)0x0) {
+    iVar3 = FUN_004d42d1("/etc/resolv.conf",local_128);
+    if (iVar3 != 0) {
+      local_d0 = 0;
+    }
+    if ((int)local_d0 != DAT_0055e588) {
+      DAT_0055e588 = (int)local_d0;
+      FUN_004e5664();
+    }
+  }
+  if (DAT_0055f4a0 == 0) {
+    DAT_00553461 = 5;
+    DAT_00553460 = 3;
+    lVar4 = FUN_004d5d6d("/etc/resolv.conf","r");
+...
+```
+
+```
+$ readelf -h qilin-esxi-patched.elf 
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x4019aa
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          1385776 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         9
+  Size of section headers:           64 (bytes)
+  Number of section headers:         19
+  Section header string table index: 18
+```
+Then we can:
+
+- set a breakpoint on the entry point
+- check the base address which is necessary to calculate the offset when setting the breakpoint at `FUN_004e52d3()`
+- set the command line arguments
+- set `follow-fork-mode child` which is necessary because the process goes into background via `fork()`
+
+```
+$ gdb ./qilin-esxi-patched.elf 
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+...
+Reading symbols from ./qilin-esxi-patched.elf...
+(No debugging symbols found in ./qilin-esxi-patched.elf)
+(gdb) b *0x4019aa
+Breakpoint 1 at 0x4019aa
+(gdb) info proc mappings
+process 3801
+Mapped address spaces:
+
+          Start Addr           End Addr       Size     Offset  Perms  objfile
+            0x400000           0x401000     0x1000        0x0  r--p   /home/remnux/Downloads/qilin-esxi-patched.elf
+            0x401000           0x4e9000    0xe8000     0x1000  r-xp   /home/remnux/Downloads/qilin-esxi-patched.elf
+            0x4e9000           0x550000    0x67000    0xe9000  r--p   /home/remnux/Downloads/qilin-esxi-patched.elf
+            0x550000           0x554000     0x4000   0x14f000  rw-p   /home/remnux/Downloads/qilin-esxi-patched.elf
+            0x554000           0x560000     0xc000        0x0  rw-p   
+      0x7ffff7ff9000     0x7ffff7ffd000     0x4000        0x0  r--p   [vvar]
+      0x7ffff7ffd000     0x7ffff7fff000     0x2000        0x0  r-xp   [vdso]
+      0x7ffffffde000     0x7ffffffff000    0x21000        0x0  rw-p   [stack]
+  0xffffffffff600000 0xffffffffff601000     0x1000        0x0  --xp   [vsyscall]
+(gdb) set args -y --path test/ --password 123
+(gdb) set follow-fork-mode child
+(gdb) run
+Starting program: /home/remnux/Downloads/qilin-esxi-patched.elf -y --path test/ --password 123
+...
+Breakpoint 1, 0x00000000004019aa in ?? ()
+(gdb) b *0x4e52d3
+Breakpoint 2 at 0x4e52d3
+(gdb) c
+Continuing.
+--- Configuration start ---
+...
+--- Configuration end ---
+[Attaching after process 3832 fork to child process 3836]
+[New inferior 2 (process 3836)]
+[Detaching after fork from parent process 3832]
+[Inferior 1 (process 3832) detached]
+Process gone into background
+[New LWP 3837]
+[New LWP 3838]
+[New LWP 3839]
+[New LWP 3840]
+[LWP 3840 exited]
+[LWP 3839 exited]
+[LWP 3837 exited]
+[LWP 3838 exited]
+[Inferior 2 (process 3836) exited normally]
+BFD: reopening /home/remnux/Downloads/qilin-esxi-patched.elf: No such file or directory
+(gdb)
+```
+Finally, we can check what is written to `/etc/motd` which turns out to be the ransomware notes as expected.
+
+```
+$ cat /etc/motd
+-- Qilin 
+
+Your network/system was encrypted. 
+Encrypted files have new extension. 
+
+-- Compromising and sensitive data 
+
+We have downloaded compromising and sensitive data from you system/network 
+If you refuse to communicate with us and we do not come to an agreement, your data will be published. 
+Data includes: 
+- Employees personal data, CVs, DL , SSN. 
+- Complete network map including credentials for local and remote services. 
+- Financial information including clients data, bills, budgets, annual reports, bank statements. 
+- Complete datagrams/schemas/drawings for manufacturing in solidworks format 
+- And more... 
+
+-- Warning 
+
+1) If you modify files - our decrypt software won't able to recover data 
+2) If you use third party software - you can damage/modify files (see item 1) 
+3) You need cipher key / our decrypt software to restore you files. 
+4) The police or authorities will not be able to help you get the cipher key. We encourage you to consider your decisions. 
+
+-- Recovery 
+
+1) Download tor browser: https://www.torproject.org/download/ 
+2) Go to domain 
+3) Enter credentials-- Credentials 
+
+Extension: o7L03e8F9J 
+Domain: ***.onion 
+login: *** 
+password: ***
+```
