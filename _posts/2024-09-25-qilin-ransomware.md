@@ -1719,7 +1719,7 @@ $ grep stat\( strace.log
 ```
 They are not present so it looks like the `/etc/resolv.conf` related functions are indeed dead code.
 
-We can check it with `gdb` as well to be sure. First we need to identify the function where `/etc/resolv.conf` is accessed and the entry point of the executable:
+We can check it with `gdb` as well to be sure. First we need to identify the function where `/etc/resolv.conf` is accessed, determine if the executable is PIE or non-PIE and find the entry point of the executable:
 
 ```c
 void FUN_004e52d3(void)
@@ -1767,12 +1767,14 @@ ELF Header:
   Number of section headers:         19
   Section header string table index: 18
 ```
-Then we can:
+Based on this output our binary is non-PIE (`Type: EXEC (Executable file)`) which means ASLR does not complicate things.
 
-- set a breakpoint on the entry point
-- check the base address which is necessary to calculate the offset when setting the breakpoint at `FUN_004e52d3()`
+Now we can:
+
+- set a breakpoint on the entry point (optional)
 - set the command line arguments
 - set `follow-fork-mode child` which is necessary because the process goes into background via `fork()`
+- run the executable to see whether `FUN_004e52d3()` is ever called
 
 ```
 $ gdb ./qilin-esxi-patched.elf 
@@ -1782,20 +1784,6 @@ Reading symbols from ./qilin-esxi-patched.elf...
 (No debugging symbols found in ./qilin-esxi-patched.elf)
 (gdb) b *0x4019aa
 Breakpoint 1 at 0x4019aa
-(gdb) info proc mappings
-process 3801
-Mapped address spaces:
-
-          Start Addr           End Addr       Size     Offset  Perms  objfile
-            0x400000           0x401000     0x1000        0x0  r--p   /home/remnux/Downloads/qilin-esxi-patched.elf
-            0x401000           0x4e9000    0xe8000     0x1000  r-xp   /home/remnux/Downloads/qilin-esxi-patched.elf
-            0x4e9000           0x550000    0x67000    0xe9000  r--p   /home/remnux/Downloads/qilin-esxi-patched.elf
-            0x550000           0x554000     0x4000   0x14f000  rw-p   /home/remnux/Downloads/qilin-esxi-patched.elf
-            0x554000           0x560000     0xc000        0x0  rw-p   
-      0x7ffff7ff9000     0x7ffff7ffd000     0x4000        0x0  r--p   [vvar]
-      0x7ffff7ffd000     0x7ffff7fff000     0x2000        0x0  r-xp   [vdso]
-      0x7ffffffde000     0x7ffffffff000    0x21000        0x0  rw-p   [stack]
-  0xffffffffff600000 0xffffffffff601000     0x1000        0x0  --xp   [vsyscall]
 (gdb) set args -y --path test/ --password 123
 (gdb) set follow-fork-mode child
 (gdb) run
