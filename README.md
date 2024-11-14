@@ -5,9 +5,8 @@ My [blog](https://shadowshell.io/) is a fork of [Hacker-Blog](https://github.com
 ### Included
 
 1. SEO tags
-2. About Page
-3. Sitemap (`https://base-url/sitemap`)
-4. Google Analytics (optional)
+2. Sitemap (`https://base-url/sitemap`)
+3. Google Analytics (optional)
 
 ## Usage
 
@@ -69,10 +68,6 @@ Additionally, you may choose to set the following optional variables:
 ```yml
 google_analytics: [Your Google Analytics tracking ID]
 ```
-
-### About Page
-
-Edit `about.md`
 
 ### Layout
 
