@@ -39,8 +39,9 @@ Choose a secure encryption password:
 export _LUKSPASSWD="secure_luks_p4ssw0rd"
 ```
 
-Choose the newest available image and update the checksum as well (you can find it in `2023-05-03-raspios-bullseye-armhf-lite.img.xz.sha256`):
+Choose the newest available image and update the checksum as well (**updated (2023)**: you can find it in `2023-05-03-raspios-bullseye-armhf-lite.img.xz.sha256`):
 ```
+# updated (2023):
 export _IMAGEURL="https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2023-05-03/2023-05-03-raspios-bullseye-armhf-lite.img.xz"
 export _IMAGESHA="b5e3a1d984a7eaa402a6e078d707b506b962f6804d331dcc0daa61debae3a19a"
 ```
