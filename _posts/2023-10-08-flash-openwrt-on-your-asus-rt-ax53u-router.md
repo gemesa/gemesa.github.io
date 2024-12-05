@@ -83,7 +83,7 @@ Input IP netmask: 255.255.255.0
 Input file nameopenwrt-22.03.5-ramips-mt7621-asus_rt-ax53u-squashfs-factory.bin
 ```
 
-If there is something wrong with your TFTP connection you will see a timeout:
+If there is something wrong with your TFTP connection you will see a timeout, permission denied or other error:
 
 ```
 Using eth@1e100000 device
