@@ -131,7 +131,7 @@ Error: no Image found at offset 0x003e0000
 Error: no Image found at offset 0x003e0040
 ```
 
-After doing a power reset your router will load the OpenWRT firmware. You can check the boot logs (and open LuCI at 192.168.1.1):
+After typing `boot` or performing a power reset your router will load the OpenWRT firmware. You can check the boot logs (and open LuCI at 192.168.1.1):
 
 ```
 Reading from 0x1e0000, size 0x100000
