@@ -1,5 +1,5 @@
 ---
-title: Reversing Qilin ESXi ransomware
+title: Reversing the Qilin ESXi ransomware
 published: true
 ---
 
