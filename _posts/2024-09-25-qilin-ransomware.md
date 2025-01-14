@@ -355,7 +355,7 @@ Detects the OS via `uname()`:
 
 ```
 
-Note: the x64 syscall table is available [here](https://github.com/torvalds/linux/blob/master/arch/x86/entry/syscalls/syscall_64.tbl) and [here](https://x64.syscall.sh/).
+Note: the x64 syscall table is available [here](https://github.com/torvalds/linux/blob/c45323b7560ec87c37c729b703c86ee65f136d75/arch/x86/entry/syscalls/syscall_64.tbl) and [here](https://x64.syscall.sh/).
 
 ```c
 undefined4 mw_detect_os(undefined4 *param_1)
@@ -399,7 +399,7 @@ undefined4 mw_detect_os(undefined4 *param_1)
 
 Checks the number of CPU cores by accessing `/var/run/dmesg.boot` on BSD and `/proc/cpuinfo` on other systems.
 
-Sets the maximum [number of open files (0x7)](https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/resource.h#L31) to 4096 (0x1000) via `rlimit()`. 0x1000 is used twice since the [rlimit struct](https://man7.org/linux/man-pages/man2/getrlimit.2.html) contains 2 fields: soft limit and hard limit.
+Sets the maximum [number of open files (0x7)](https://github.com/torvalds/linux/blob/c45323b7560ec87c37c729b703c86ee65f136d75/include/uapi/asm-generic/resource.h#L31) to 4096 (0x1000) via `rlimit()`. 0x1000 is used twice since the [rlimit struct](https://man7.org/linux/man-pages/man2/getrlimit.2.html) contains 2 fields: soft limit and hard limit.
 
 ```
 # define RLIMIT_NOFILE		7	/* max number of open files */
@@ -1108,7 +1108,7 @@ void mw_main(undefined4 param_1,undefined8 *param_2)
     uVar6 = mw_thpool_init(piVar5[1]);
 ```
 
-Based on the code structure and error messages in `mw_thpool_init()` the program uses the [C-Thread-Pool open-source library](https://github.com/Pithikos/C-Thread-Pool/blob/master/thpool.c#L140).
+Based on the code structure and error messages in `mw_thpool_init()` the program uses the [C-Thread-Pool open-source library](https://github.com/Pithikos/C-Thread-Pool/blob/4eb5a69a439f252d2839af16b98d94464883dfa5/thpool.c#L140).
 
 ```c
 long * mw_thpool_init(int param_1)
@@ -1467,7 +1467,7 @@ int mw_nftw_w(char **param_1)
 }
 ```
 
-`DAT_00553530` points to `NULL` so directories are not modified. `DAT_00553528` points to `mw_thpool_add_work_w()`, a wrapper around [thpool_add_work()](https://github.com/Pithikos/C-Thread-Pool/blob/master/thpool.c#L195C5-L195C20). `thpool_add_work()` takes a function pointer as a callback which handles the encryption (`FUN_00401f50()`).
+`DAT_00553530` points to `NULL` so directories are not modified. `DAT_00553528` points to `mw_thpool_add_work_w()`, a wrapper around [thpool_add_work()](https://github.com/Pithikos/C-Thread-Pool/blob/4eb5a69a439f252d2839af16b98d94464883dfa5/thpool.c#L195C5-L195C20). `thpool_add_work()` takes a function pointer as a callback which handles the encryption (`FUN_00401f50()`).
 
 ```
                              switchD_004010e5::caseD_101                     XREF[2]:     004010e5(j), 004ea530(*)  
