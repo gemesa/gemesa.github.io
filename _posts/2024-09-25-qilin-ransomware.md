@@ -11,7 +11,7 @@ In this post we will dive into reverse engineering a sample uploaded to [Malware
 
 ## Executive summary
 
-This Qilin ransomware variant is an advanced threat targeting Linux, ESXi and BSD, capable of encrypting large amounts of data through multi-threading and recursive file traversal. It detects the host OS and in the case of ESXi it not only encrypts files but also executes commands to kill VMs and remove snapshots, ensuring that files are unlocked for encryption. The malware is highly configurable, parsing a range of command-line options for settings like paths, encryption delays and file exclusions. It uses 4096-bit RSA encryption via OpenSSL. The binary shows a clear intent to adapt to different environments and maximize damage, making it a serious threat.
+[This](https://bazaar.abuse.ch/sample/555964b2fed3cced4c75a383dd4b3cf02776dae224f4848dcc03510b1de4dbf4/) Qilin ransomware variant is an advanced threat targeting Linux, ESXi and BSD, capable of encrypting large amounts of data through multi-threading and recursive file traversal. It detects the host OS and in the case of ESXi it not only encrypts files but also executes commands to kill VMs and remove snapshots, ensuring that files are unlocked for encryption. The malware is highly configurable, parsing a range of command-line options for settings like paths, encryption delays and file exclusions. It uses 4096-bit RSA encryption via OpenSSL. The binary shows a clear intent to adapt to different environments and maximize damage, making it a serious threat.
 
 ## Detailed analysis
 
