@@ -522,9 +522,9 @@ Data includes:
 3) Enter credentials-- Credentials 
 
 Extension: o7L03e8F9J 
-Domain: ***.onion 
-login: *** 
-password: ***
+Domain: [redacted].onion 
+login: [redacted] 
+password: [redacted]
 ```
 
 Executes various ESXi commands which initially seem unnecessary but are actually workarounds for known ESXi issues:
@@ -1850,7 +1850,7 @@ Data includes:
 3) Enter credentials-- Credentials 
 
 Extension: o7L03e8F9J 
-Domain: ***.onion 
-login: *** 
-password: ***
+Domain: [redacted].onion 
+login: [redacted] 
+password: [redacted]
 ```
