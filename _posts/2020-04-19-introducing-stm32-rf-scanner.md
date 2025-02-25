@@ -85,7 +85,7 @@ Note: the SW can be built from Eclipse also. `.project` is stored in [src](https
 
 Measurement results are stored in the [meas](https://github.com/gemesa/stm32-rf-scanner/tree/master/meas) folder:
 
-#### data0_wi-fi_+_microwave_oven.log
+#### data0\_wi-fi\_+\_microwave\_oven.log
 
 ```
 |------------------------------------------------------------------------------------------------------------------------------|-----|-----|
@@ -121,7 +121,7 @@ Measurement results are stored in the [meas](https://github.com/gemesa/stm32-rf-
 Info: Wi-Fi idle state (no down- and uploading). A microwave oven is being used on a different floor.
 ```
 
-#### data1_wi-fi_upload.log
+#### data1\_wi-fi\_upload.log
 
 ```
 |------------------------------------------------------------------------------------------------------------------------------|-----|-----|
@@ -157,7 +157,7 @@ Info: Wi-Fi idle state (no down- and uploading). A microwave oven is being used 
 Info: uploading data through Wi-Fi.
 ```
 
-#### data2_bluetooth_0.log
+#### data2\_bluetooth\_0.log
 
 ```
 |------------------------------------------------------------------------------------------------------------------------------|-----|-----|
@@ -193,7 +193,7 @@ Info: uploading data through Wi-Fi.
 Info: phone is trying to connect to turned off JBL (Bluetooth).
 ```
 
-#### data3_bluetooth_1.log
+#### data3\_bluetooth\_1.log
 
 ```
 |------------------------------------------------------------------------------------------------------------------------------|-----|-----|
