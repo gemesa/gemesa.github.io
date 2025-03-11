@@ -1869,6 +1869,8 @@ int __cdecl mw_decrypt_and_decompress(undefined *param_1,uint param_2,SIZE_T par
   return local_14;
 }
 ```
+> [`RtlDecompressBuffer`](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-rtldecompressbuffer)
+
 Optionally, additional size and MZ header checks can be enabled by `param_5`.
 
 Single URL:
