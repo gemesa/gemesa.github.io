@@ -2311,8 +2311,8 @@ int __cdecl mw_execute_pe_w(char *param_1,int param_2)
 
 If `param_4` is set to 1, 3 parameters are passed when transferring the execution to `entry_point`. This mechanism is implemented to support executing DLLs:
 
-- https://learn.microsoft.com/en-us/windows/win32/dlls/dllmain
-- https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-entry-point-function
+- [https://learn.microsoft.com/en-us/windows/win32/dlls/dllmain](https://learn.microsoft.com/en-us/windows/win32/dlls/dllmain)
+- [https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-entry-point-function](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-entry-point-function)
 
 > The following example demonstrates how to structure the DLL entry-point function.
 > ```c
