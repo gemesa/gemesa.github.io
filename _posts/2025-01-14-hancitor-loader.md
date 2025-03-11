@@ -95,9 +95,7 @@ Click `Run`. We stop at another `rep movsb` instruction. Click `Step Over`. Sear
 
 Click `Run`. Now we enter a loop. There is a `leave` instruction after `loop`. Set a breakpoint on it. At this point the loop is finished and we can check the content of the related memory section. Search for `MZ`, there is no match this time.
 
-Click `Run`. We hit another `VirtualAlloc` call. 
-
-Now we hit the 3. `VirtualAlloc` and things get more interesting. The workflow is the same as before, we click `Execute till return`, select `EAX`, click `Follow in dump`, set a HW access breakpoint on the 1. byte of the dump memory. Then we click `Run` once so our HW breakpoint is hit. After hitting `Execute till return` a couple of times and searching for the `MZ` pattern after each one, we can see a PE file forming in the memory. When it is fully unpacked, we can dump it to disk.
+Click `Run`. Now we hit the 3. `VirtualAlloc` and things get more interesting. The workflow is the same as before, we click `Execute till return`, select `EAX`, click `Follow in dump`, set a HW access breakpoint on the 1. byte of the dump memory. Then we click `Run` once so our HW breakpoint is hit. After hitting `Execute till return` a couple of times and searching for the `MZ` pattern after each one, we can see a PE file forming in the memory. When it is fully unpacked, we can dump it to disk.
 
 The PE unpacking is finished at this `ret` instruction:
 
