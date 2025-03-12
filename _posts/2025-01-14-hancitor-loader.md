@@ -89,11 +89,11 @@ Now we can search for `MZ` in this memory region by navigating to `Memory Map`, 
 
 ![x32dbg-3]({{site.baseurl}}/assets/hancitor-analysis/x32dbg-3.png)
 
-Now we can click on `Run` and wait to hit the next `VirtualAlloc` call. The workflow is the same as before, we click `Execute till return`, select `EAX`, click `Follow in dump`, set a HW access breakpoint on the 1. byte of the dump memory. We also remove the breakpoint set previously at `0x02F70000`. Then we click `Run` again. Now we can see that the memory region is being written. Click `Step over` so `rep movsb` executes and fills the memory region. Search for `MZ`, there is no match this time.
+Now we can click on `Run` and wait to hit the next `VirtualAlloc` call. The workflow is the same as before, we click `Execute till return`, select `EAX`, click `Follow in dump`, set a HW access breakpoint on the 1. byte of the dump memory. We also remove the breakpoint set previously at `0x02F70000`. Then we click `Run` again. Now we can see that the memory region is being written. Click `Step over` so `rep movsb` executes and fills the memory region. Search for `MZ`: there is no match.
 
-Click `Run`. We stop at another `rep movsb` instruction. Click `Step Over`. Search for `MZ`, there is no match this time.
+Click `Run`. We stop at another `rep movsb` instruction. Click `Step Over`. Search for `MZ`: there is no match.
 
-Click `Run`. Now we enter a loop. There is a `leave` instruction after `loop`. Set a breakpoint on it. At this point the loop is finished and we can check the content of the related memory section. Search for `MZ`, there is no match this time.
+Click `Run`. Now we enter a loop. There is a `leave` instruction after `loop`, set a breakpoint on it. At this point the loop is finished and we can check the content of the related memory section. Search for `MZ`: there is no match.
 
 Click `Run`. Now we hit the 3. `VirtualAlloc` and things get more interesting. The workflow is the same as before, we click `Execute till return`, select `EAX`, click `Follow in dump`, set a HW access breakpoint on the 1. byte of the dump memory. Then we click `Run` once so our HW breakpoint is hit. After hitting `Execute till return` a couple of times and searching for the `MZ` pattern after each one, we can see a PE file forming in the memory. When it is fully unpacked, we can dump it to disk.
 
