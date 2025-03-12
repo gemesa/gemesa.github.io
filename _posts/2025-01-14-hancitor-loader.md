@@ -2778,6 +2778,8 @@ bool __cdecl mw_remove_executed_cmd(int param_1)
 
 ### YARA
 
+Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
+
 #### Packed binary
 
 DiE cant identify the packer, maybe it is custom made. Without diving deep into the packer mechanism, I created the following YARA rule manually. This rule might not be strict enough, it might make sense to auto generate a YARA rule using [yarGen](https://github.com/Neo23x0/yarGen) or similar alternatives as a future improvement.
@@ -3002,6 +3004,8 @@ rule hancitor_unpacked {
 }
 ```
 ### Suricata
+
+Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
 Since the malware is actively trying to reach the C2 servers, IDS/IPS rules can be created to detect and block it.
 
