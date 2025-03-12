@@ -3,6 +3,19 @@ title: Reversing the Hancitor loader
 published: true
 ---
 
+## Table of contents
+
+- [Introduction](#introduction)
+- [Executive summary](#executive-summary)
+- [Detailed analysis](#detailed-analysis)
+  - [Hashes](#hashes)
+  - [Overview](#overview)
+  - [x32dbg](#x32dbg)
+  - [Ghidra](#ghidra)
+  - [YARA](#yara)
+  - [Suricata](#suricata)
+  - [Zeek](#zeek)
+
 ## Introduction
 
 Hancitor (also known as Chanitor) is a well-known malware loader, active since 2013. It is designed to install other malware on infected targets and is typically distributed through documents containing malicious macros and phishing campaigns. Once a victim opens the document and enables macros, Hancitor infects the target system and awaits additional C2 (Command and Control) instructions, such as installing ransomware or information stealers. More details can be found [here](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Trojan:Win32/Hancitor&threatId=-2147188234) and [here](https://malpedia.caad.fkie.fraunhofer.de/details/win.hancitor).
