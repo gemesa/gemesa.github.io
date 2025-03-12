@@ -97,6 +97,8 @@ Click `Run`. Now we enter a loop. There is a `leave` instruction after `loop`, s
 
 Click `Run`. Now we hit the 3. `VirtualAlloc` and things get more interesting. The workflow is the same as before, we click `Execute till return`, select `EAX`, click `Follow in dump`, set a HW access breakpoint on the 1. byte of the dump memory. Then we click `Run` once so our HW breakpoint is hit. After hitting `Execute till return` a couple of times and searching for the `MZ` pattern after each one, we can see a PE file forming in the memory. When it is fully unpacked, we can dump it to disk.
 
+![x32dbg-4]({{site.baseurl}}/assets/hancitor-analysis/x32dbg-4.png)
+
 The PE unpacking is finished at this `ret` instruction:
 
 ```
