@@ -3,6 +3,16 @@ title: Reversing the Qilin ESXi ransomware
 published: true
 ---
 
+## Table of contents
+
+- [Introduction](#introduction)
+- [Executive summary](#executive-summary)
+- [Detailed analysis](#detailed-analysis)
+  - [Hashes](#hashes)
+  - [Overview](#overview)
+  - [Static analysis (Ghidra)](#static-analysis-ghidra)
+  - [Dynamic analysis](#dynamic-analysis)
+
 ## Introduction
 
 The Qilin ransomware group (aka Agenda) was discovered in 2022, targeting enterprise systems including Windows, Linux, ESXi and BSD environments. They use different languages like C/C++, Rust and Go. Since ESXi is widely used in enterprise and cloud setups as a hypervisor, attacking it can cause a lot of damage quickly, making it easier to demand a ransom. You can find more details about them in this [detailed post](https://www.group-ib.com/blog/qilin-ransomware/).
