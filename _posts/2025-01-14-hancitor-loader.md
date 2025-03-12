@@ -3006,9 +3006,9 @@ rule hancitor_unpacked {
 Since the malware is actively trying to reach the C2 servers, IDS/IPS rules can be created to detect and block it.
 
 ```
-$ cat http.rules 
+$ cat hancitor.rules
 alert http any any -> any any (msg:"Hancitor beacon"; flow:established,to_server; http.request_body; content:"GUID="; content:"&BUILD="; content:"&INFO="; content:"&EXT="; content:"&IP="; content:"&TYPE=1"; content:"&WIN="; sid:1000001; rev:2;)
-$ sudo suricata -c /etc/suricata/suricata.yaml -s http.rules -i enp0s3
+$ sudo suricata -c /etc/suricata/suricata.yaml -s hancitor.rules -i enp0s3
 $ sudo tail -f /var/log/suricata/fast.log
 02/24/2025-15:31:54.255497  [**] [1:1000001:2] Hancitor beacon [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.129:49929 -> 192.168.56.128:80
 02/24/2025-15:31:54.275576  [**] [1:1000001:2] Hancitor beacon [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.129:49930 -> 192.168.56.128:80
