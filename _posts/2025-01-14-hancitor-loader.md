@@ -647,8 +647,6 @@ int __cdecl mw_get_username(LPSTR param_1)
   }
   return (uint)(iVar1 != 0);
 }
-
-
 ```
 First the program fetches the PID of `explorer.exe` via `mw_get_pid_by_name`.
 
@@ -668,7 +666,6 @@ mw_get_pid_by_name @ 10002e90
   lstrcmpiA @ EXTERNAL:00000061
 
 OrderedCallGraphGenerator.java> Finished!
-
 ```
 
 `mw_get_pid_by_name` finds the PID by enumerating all running processes, retrieving the executable filename for each one and returning the PID when the filename matches the requested name (which is `explorer.exe` that runs in the user's security context).
