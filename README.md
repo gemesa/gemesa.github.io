@@ -1,4 +1,4 @@
-# Hacker and embedded SW blog
+# Malware analysis & reverse engineering lab
 
 My [blog](https://shadowshell.io/) is a fork of [Hacker-Blog](https://github.com/tocttou/hacker-blog) which is a minimalistic, responsive jekyll theme built for hackers. It is based on the [hacker theme](https://github.com/pages-themes/hacker) for project pages.
 
