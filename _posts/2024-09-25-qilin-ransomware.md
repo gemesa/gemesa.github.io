@@ -323,7 +323,7 @@ switchD_004010e5_caseD_53:
 
 #### Ransomware initialization
 
-After the command-line arguments are passed the ransomware executes some initilization tasks.
+After the command-line arguments are passed the ransomware executes some initialization tasks.
 
 Loads the following 4096-bit RSA public key:
 
@@ -1298,7 +1298,7 @@ ulong mw_run_cmd2(char *param_1)
 
 ```
 
-Snapshots are removed if `--no-snap-rm` is not passed. They are propably deleted instead of getting encrypted because that would take too much time.
+Snapshots are removed if `--no-snap-rm` is not passed. They are probably deleted instead of getting encrypted because that would take too much time.
 
 ```c
 void mw_main(undefined4 param_1,undefined8 *param_2)
@@ -1687,7 +1687,7 @@ with:
         004013a4 75 40           JNZ        LAB_004013e6
 ```
 
-Then we can execute the malware with any choosen password.
+Then we can execute the malware with any chosen password.
 
 If we check where `/etc/resolv.conf` is used in the code we can see it is passed as an argument to a `stat()` syscall for example:
 
