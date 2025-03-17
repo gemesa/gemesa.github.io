@@ -1,19 +1,15 @@
 /*
    original: https://github.com/pages-themes/hacker 
+   with custom theme modifications
 */
 
-$apple-blossom: #ac4142;
-$alto: #d0d0d0;
-$bouquet: #aa759f;
-$chelsea-cucumber: #90a959;
-$cod-grey: #151515;
-$conifer: #b5e853;
-$dove-grey: #666;
-$gallery: #eaeaea;
-$grey: #888;
-$gulf-stream: #75b5aa;
-$hippie-blue: #6a9fb5;
-$potters-clay: #8f5536;
-$rajah: #f4bf75;
-$raw-sienna: #d28445;
-$silver-chalice: #aaa;
+$backgroundColour: #161820 !default;
+$codeBackgroundColour: #1f2833 !default;
+$accentColour: #45a29e !default;
+$headingColour: #66fcf1 !default;
+$bodyColour: #efeff0 !default;
+$linkColour: #45a29e !default;
+$hoverColour: #66fcf1 !default;
+$captionColour: #529e99 !default;
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap");

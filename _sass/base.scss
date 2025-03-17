@@ -1,15 +1,16 @@
 /*
    original: https://github.com/pages-themes/hacker 
+   with custom theme modifications
 */
 
 @import "rouge-base16-dark";
 @import "default_colors";
 
-$body-background: $cod-grey !default;
-$body-foreground: $gallery !default;
-$header: $conifer !default;
-$blockquote-color: $silver-chalice !default;
-$blockquote-border: $dove-grey !default;
+$body-background: $backgroundColour !default;
+$body-foreground: $bodyColour !default;
+$header: $headingColour !default;
+$blockquote-color: $captionColour !default;
+$blockquote-border: $accentColour !default;
 
 body {
   margin: 0;
@@ -18,7 +19,7 @@ body {
   color: $body-foreground;
   font-size: 16px;
   line-height: 1.5;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-family: "Fira Code", monospace;
 }
 
 /* General & 'Reset' Stuff */
@@ -51,7 +52,7 @@ li {
 
 header {
   background: rgba(0, 0, 0, 0.1);
-  border-bottom: 1px dashed $conifer; //header;
+  border-bottom: 1px dashed $accentColour;
   padding: 20px;
   margin: 0 0 40px 0;
 }
@@ -70,11 +71,11 @@ header h1 {
   margin: 0;
   text-align: center;
   font-weight: bold;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: $conifer;//$header;
+  font-family: "Fira Code", monospace;
+  color: $headingColour;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-               0 0 5px rgba(181, 232, 83, 0.1),
-               0 0 10px rgba(181, 232, 83, 0.1);
+               0 0 5px rgba(102, 252, 241, 0.1),
+               0 0 10px rgba(102, 252, 241, 0.1);
   letter-spacing: -1px;
   -webkit-font-smoothing: antialiased;
 }
@@ -82,7 +83,7 @@ header h1 {
 header h2 {
   font-size: 18px;
   font-weight: 300;
-  color: #666;
+  color: $captionColour;
 }
 
 /* Main Content
@@ -98,12 +99,12 @@ section img {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: $header;
+  font-family: "Fira Code", monospace;
+  color: $headingColour;
   letter-spacing: -0.03em;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-               0 0 5px rgba(181, 232, 83, 0.1),
-               0 0 10px rgba(181, 232, 83, 0.1);
+               0 0 5px rgba(102, 252, 241, 0.1),
+               0 0 10px rgba(102, 252, 241, 0.1);
 }
 
 #main_content h1 {
@@ -131,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
 #main_content h6 {
   font-size: 12px;
   text-transform: uppercase;
-  color: #999;
+  color: $captionColour;
   margin: 0 0 5px 0;
 }
 
@@ -141,7 +142,8 @@ dt {
 }
 
 ul li {
-  list-style-image:url('../assets/bullet.png');
+  list-style-type: disc;
+  //color: $accentColour;
 }
 
 blockquote {
@@ -151,11 +153,11 @@ blockquote {
 }
 
 pre {
-  background: rgba(0, 0, 0, 0.9);
+  background: $codeBackgroundColour;
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 10px;
   font-size: 16px;
-  color: #b5e853;
+  color: $bodyColour;
   border-radius: 2px;
   text-wrap: normal;
   overflow: auto;
@@ -163,11 +165,11 @@ pre {
 }
 
 code.highlighter-rouge {
-  background: rgba(0,0,0,0.9);
+  background: $codeBackgroundColour;
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 0px 3px;
   margin: 0px -3px;
-  color: #aa759f;
+  color: $accentColour;
   border-radius: 2px;
 }
 
@@ -178,7 +180,7 @@ table {
 
 th {
   text-align: left;
-  border-bottom: 1px dashed #b5e853;
+  border-bottom: 1px dashed $accentColour;
   padding: 5px 10px;
 }
 
@@ -189,8 +191,8 @@ td {
 hr {
   height: 0;
   border: 0;
-  border-bottom: 1px dashed #b5e853;
-  color: #b5e853;
+  border-bottom: 1px dashed $accentColour;
+  color: $accentColour;
 }
 
 /* Buttons
@@ -235,12 +237,16 @@ hr {
 */
 
 a {
-  color: #63c0f5;
-  text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+  color: $linkColour;
+  text-shadow: 0 0 5px rgba(69, 162, 158, 0.5);
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
+}
+
+a:hover {
+  color: $hoverColour;
 }
 
 a:active, a:focus {
@@ -270,6 +276,7 @@ a:active, a:focus {
   height: 50px;
   line-height: 50px;
   text-align: center;
+  color: $captionColour;
 }
 
 #wrapper {
