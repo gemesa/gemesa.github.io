@@ -5,14 +5,8 @@ published: true
 
 ## Table of contents
 
-- [Introduction](#introduction)
-- [Executive summary](#executive-summary)
-- [Detailed analysis](#detailed-analysis)
-  - [Hashes](#hashes)
-  - [Overview](#overview)
-  - [Static analysis (Ghidra)](#static-analysis-ghidra)
-  - [Dynamic analysis](#dynamic-analysis)
-  - [YARA](#yara)
+* toc placeholder
+{:toc}
 
 ## Introduction
 

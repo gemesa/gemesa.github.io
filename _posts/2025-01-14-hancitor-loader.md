@@ -5,16 +5,8 @@ published: true
 
 ## Table of contents
 
-- [Introduction](#introduction)
-- [Executive summary](#executive-summary)
-- [Detailed analysis](#detailed-analysis)
-  - [Hashes](#hashes)
-  - [Overview](#overview)
-  - [x32dbg](#x32dbg)
-  - [Ghidra](#ghidra)
-  - [YARA](#yara)
-  - [Suricata](#suricata)
-  - [Zeek](#zeek)
+* toc placeholder
+{:toc}
 
 ## Introduction
 
