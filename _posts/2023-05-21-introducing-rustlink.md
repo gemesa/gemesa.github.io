@@ -3,6 +3,11 @@ title: Introducing rustlink
 published: false
 ---
 
+# Table of contents
+
+* toc placeholder
+{:toc}
+
 # rustlink
 
 [rustlink](https://github.com/gemesa/rustlink) is a set of tools to program STM32 devices:

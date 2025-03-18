@@ -3,6 +3,13 @@ title: Shattering the stack (2)
 published: true
 ---
 
+### Table of contents
+
+* toc placeholder
+{:toc}
+
+### Introduction
+
 This post builds upon the previous ones: [Shattering the stack (1)](https://shadowshell.io/shattering-the-stack-1) where we got familiar with some basic buffer overflow exploits and the ASLR, and [Diving into shellcodes (0)](https://shadowshell.io/diving-into-shellcodes-0) where we explored some simple shellcodes. Now we take a step further to execute arbitrary code in situations where the stack is executable. The source code is available [here](https://github.com/gemesa/shadow-shell).
 
 ### vulnerable code

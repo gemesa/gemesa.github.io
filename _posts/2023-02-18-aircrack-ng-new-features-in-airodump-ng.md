@@ -3,6 +3,13 @@ title: "aircrack-ng: new features in airodump-ng"
 published: true
 ---
 
+## Table of contents
+
+* toc placeholder
+{:toc}
+
+## Introduction
+
 I have been working lately on [aircrack-ng](https://github.com/aircrack-ng/aircrack-ng), mainly on improving `airodump-ng`. Besides the numerous bugfixes I have added some new features also which will be included in the next aircrack-ng release (1.8).
 
 ## multiple `--bssid <bssid>` options

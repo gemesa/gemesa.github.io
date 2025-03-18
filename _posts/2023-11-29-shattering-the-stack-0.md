@@ -3,6 +3,13 @@ title: Shattering the stack (0)
 published: true
 ---
 
+### Table of contents
+
+* toc placeholder
+{:toc}
+
+### Introduction
+
 When a program blindly copies data into a buffer without checking its size, it risks overrunning the buffer's capacity. This vulnerability can lead to various exploits, the most critical being the execution of arbitrary code. Attackers often exploit buffer overflows to alter a program's execution flow, allowing them to execute malicious code.
 
 This post is an introduction to the world of buffer overflows. The source code can be found [here](https://github.com/gemesa/shadow-shell).

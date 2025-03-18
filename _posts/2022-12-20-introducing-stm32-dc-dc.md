@@ -3,6 +3,11 @@ title: Introducing stm32-dc-dc
 published: true
 ---
 
+# Table of contents
+
+* toc placeholder
+{:toc}
+
 # stm32-dc-dc
 
 [stm32-dc-dc](https://github.com/gemesa/stm32-dc-dc) contains the source code of an [STM32F334C8T6](https://www.st.com/en/evaluation-tools/32f3348discovery.html) based DC-DC converter. The converter can operate in buck, boost and buck-boost (mixed) mode using high resolution timers (HRTIM) and is controlled by a PI controller. The input and output voltages are measured by ADC where the ADC trigger event is synchronized with the duty cycle: the voltages are measured before or after the PWM rising or falling edge (depending on the converter mode and duty cycle), this way the measurement noise can be minimalized.

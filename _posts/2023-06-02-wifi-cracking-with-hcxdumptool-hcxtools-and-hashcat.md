@@ -3,6 +3,13 @@ title: "WiFi cracking with hcxdumptool, hcxtools and hashcat"
 published: true
 ---
 
+## Table of contents
+
+* toc placeholder
+{:toc}
+
+## Introduction
+
 [hcxdumptool](https://github.com/ZerBea/hcxdumptool) is an excellent WiFi security audit tool, it can capture packets from wlan devices, create dump files (for example pcapng) and discover potential weak points. [hcxtools](https://github.com/ZerBea/hcxtools) can convert these dump files to hash files which can be understood by [hashcat](https://github.com/hashcat/hashcat). `hashcat` can recover passwords if you use proper wordlists or mask attacks.
 
 ## hcxdumptool

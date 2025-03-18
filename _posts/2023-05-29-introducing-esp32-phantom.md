@@ -3,6 +3,11 @@ title: Introducing esp32-phantom
 published: false
 ---
 
+# Table of contents
+
+* toc placeholder
+{:toc}
+
 # esp32-phantom
 
 [esp32-phantom](https://github.com/gemesa/esp32-phantom) is a Rust sandbox to explore the WiFi and BLE capabilities of the ESP32, for example:

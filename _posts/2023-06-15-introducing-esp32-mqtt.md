@@ -3,6 +3,11 @@ title: Introducing esp32-mqtt
 published: false
 ---
 
+# Table of contents
+
+* toc placeholder
+{:toc}
+
 # esp32-mqtt
 
 [esp32-mqtt](https://github.com/gemesa/esp32-mqtt) is a sandbox to explore the MQTT capabilities of the ESP32, for example:

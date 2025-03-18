@@ -3,6 +3,13 @@ title: Flash OpenWRT on your ASUS RT-AX53U router
 published: true
 ---
 
+### Table of contents
+
+* toc placeholder
+{:toc}
+
+### Introduction
+
 [ASUS RT-AX53U](https://openwrt.org/toh/asus/rt-ax53u) is a dual-band 802.11ax (WiFi 6) and OpenWRT compatible router. Before you can start the SW flashing, you need to do a little HW hacking which is described [here](https://openwrt.org/toh/asus/rt-ax53u#photos) in details.
 
 ### HW setup

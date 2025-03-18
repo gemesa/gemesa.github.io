@@ -3,6 +3,11 @@ title: Deploying a Bitcoin node on Synology DS923+
 published: true
 ---
 
+## Table of contents
+
+* toc placeholder
+{:toc}
+
 ## Introduction
 
 Bitcoin is a decentralized digital currency that operates without a central authority. It relies on blockchain technology, which is a public ledger that securely records all transactions. A Bitcoin node is a computer that participates in the Bitcoin network, storing and verifying all transactions and blocks on the blockchain. Nodes help maintain the network's security and integrity, but they do not necessarily mine Bitcoin (as will be the case with our node).

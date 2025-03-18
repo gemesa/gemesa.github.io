@@ -3,6 +3,11 @@ title: Introducing stm32-rf-scanner
 published: true
 ---
 
+# Table of contents
+
+* toc placeholder
+{:toc}
+
 # 2.4GHz RF scanner
 
 [stm32-rf-scanner](https://github.com/gemesa/stm32-rf-scanner) contains the source code of an [nRF24L01+](https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf) and [Blue Pill (STM32F103C8T6)](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill.html) based RF scanner. The Blue Pill scans frequencies from 2.400GHz to 2.525GHz (1MHz resolution) with nRF24L01+ and plots the activity on each frequency through UART.

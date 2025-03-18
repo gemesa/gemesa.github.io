@@ -3,6 +3,11 @@ title: Encrypt your Raspberry Pi with cryptmypi
 published: true
 ---
 
+## Table of contents
+
+* toc placeholder
+{:toc}
+
 ## Introduction
 
 [cryptmypi](https://github.com/unixabg/cryptmypi) is a shell script assisting in the setup of a Raspberry Pi (RPi). This is no big deal so far, the key differences compared to a basic RPi configuration:

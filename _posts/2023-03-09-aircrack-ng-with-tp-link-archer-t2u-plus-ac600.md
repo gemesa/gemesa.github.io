@@ -3,6 +3,11 @@ title: aircrack-ng with TP-Link Archer T2U Plus AC600
 published: true
 ---
 
+## Table of contents
+
+* toc placeholder
+{:toc}
+
 ## Introduction
 
 [aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) is a set of WiFi security audit tools. The project was started at the end of February 2006 so there is a lot of documentation available, for example:

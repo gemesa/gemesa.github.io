@@ -3,6 +3,13 @@ title: Shattering the stack (1)
 published: true
 ---
 
+### Table of contents
+
+* toc placeholder
+{:toc}
+
+### Introduction
+
 This is a follow-up to the [previous post](https://shadowshell.io/shattering-the-stack-0) where we began exploring the world of buffer overflows. Now, we will examine how to circumvent ASLR using [pmap](https://linux.die.net/man/1/pmap) (or any similar tool that can determine randomized addresses at runtime). The source code is available [here](https://github.com/gemesa/shadow-shell).
 
 ### vulnerable code

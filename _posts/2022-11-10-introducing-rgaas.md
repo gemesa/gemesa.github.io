@@ -3,6 +3,11 @@ title: Introducing rgaas
 published: false
 ---
 
+# Table of contents
+
+* toc placeholder
+{:toc}
+
 # [RGaaS](https://github.com/gemesa/rgaas) - Random Generator as a Service 
 
 `rgaas-server` is a service that generates random bytes (using rand() which is not a cryptographically secure generator). The length of the random byte sequence can be specified by the client. The server can handle multiple random number requests per connection, can handle multiple connections, serves the clients via TCP/IP and can be run as a daemon.

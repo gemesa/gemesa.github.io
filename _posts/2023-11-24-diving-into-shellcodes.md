@@ -3,6 +3,13 @@ title: Diving into shellcodes
 published: true
 ---
 
+## Table of contents
+
+* toc placeholder
+{:toc}
+
+## Introduction
+
 Shellcodes are typically used in the context of exploiting a vulnerability in software, such as a buffer overflow. In an exploit, the shellcode is the payload that gets executed as a result of the vulnerability being exploited. Once the vulnerability is exploited and control of the process is hijacked, the shellcode is executed.
 
 In this post I will show you how to generate and execute a simple messagebox shellcode both in C and Rust. The source code can be found [here](https://github.com/gemesa/shadow-shell).
