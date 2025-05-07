@@ -1028,9 +1028,9 @@ void mw_watchdog_handler(void)
 ```
 
 Relevant references can be found here:
-- https://www.kernel.org/doc/Documentation/watchdog/watchdog-api.txt
-- https://android.googlesource.com/platform/system/sepolicy/+/ae46511bfa62b56938b3df824bb2ee737dceaa7a/ioctl_defines#1781
-- https://github.com/torvalds/linux/blob/02ddfb981de88a2c15621115dd7be2431252c568/include/uapi/linux/watchdog.h
+- [https://www.kernel.org/doc/Documentation/watchdog/watchdog-api.txt](https://www.kernel.org/doc/Documentation/watchdog/watchdog-api.txt)
+- [https://android.googlesource.com/platform/system/sepolicy/+/ae46511bfa62b56938b3df824bb2ee737dceaa7a/ioctl_defines#1781](https://android.googlesource.com/platform/system/sepolicy/+/ae46511bfa62b56938b3df824bb2ee737dceaa7a/ioctl_defines#1781)
+- [https://github.com/torvalds/linux/blob/02ddfb981de88a2c15621115dd7be2431252c568/include/uapi/linux/watchdog.h](https://github.com/torvalds/linux/blob/02ddfb981de88a2c15621115dd7be2431252c568/include/uapi/linux/watchdog.h)
 
 ### `mw_scanner`
 
