@@ -1,5 +1,5 @@
 ---
-title: Reversing a Mirai botnet variant
+title: Reversing a Mirai SORA botnet variant
 published: true
 ---
 
