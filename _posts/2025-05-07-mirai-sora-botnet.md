@@ -1352,3 +1352,415 @@ $ sudo suricata -c /etc/suricata/suricata.yaml -s mirai.rules -i
 $ sudo tail -f /var/log/suricata/fast.log
 04/04/2025-16:15:20.435158  [**] [1:1000003:1] Mirai SORA C2 [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.128:49250 -> 154.7.253.207:1312
 ```
+
+## Appendix
+
+### Full call graph
+
+A call graph (full depth with addresses) has been generated with a Ghidra script available [here](https://github.com/gemesa/ghidra-scripts/) for your reference if you want to follow along in Ghidra.
+
+```
+OrderedCallGraphGenerator.java> Running...
+OrderedCallGraphGenerator.java> 
+mw_main @ 0000f4bc
+  mw_sigemptyset @ 000155a0
+    mw_memset @ 000152c0
+  mw_set_signal_mask @ 00015570
+    mw_set_bit @ 00015694
+    mw_get_errno_location @ 00015258
+  mw_rt_sigprocmask @ 00014f00
+    mw_get_errno_location @ 00015258 [already visited!]
+  mw_signal @ 000155b8
+    mw_get_errno_location @ 00015258 [already visited!]
+    mw_set_bit @ 00015694 [already visited!]
+    mw_test_bit @ 00015670
+    mw_set_signal_handler @ 00016a60
+      mw_memmove @ 000152a0
+        mw_memmove @ 00017390 [already visited!]
+      mw_rt_sigaction @ 00016b4c
+        mw_get_errno_location @ 00015258 [already visited!]
+  mw_sigtrap_handler @ 0000f364
+    mw_setup_c2_connection @ 0000f37c
+      mw_decrypt_with_key @ 00013218
+      mw_inet_aton_w @ 0001537c
+        mw_inet_aton @ 00017820
+      mw_get_table_entry @ 00013134
+      mw_encrypt_with_key @ 00013160
+  mw_get_local_ip @ 000145a8
+    mw_get_errno_location @ 00015258 [already visited!]
+    mw_socket @ 00015544
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_connect @ 000153cc
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_getsockname @ 000153f8
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_close @ 00014c84
+      mw_get_errno_location @ 00015258 [already visited!]
+  mw_init_encrypted_config @ 000132d0
+    mw_alloc @ 000156dc
+      mw_noop_1 @ 00016774
+      mw_allocate_from_freelist @ 00015a90
+      mw_sbrk @ 00016f28
+        mw_brk @ 00017948
+          mw_get_errno_location @ 00015258 [already visited!]
+      mw_insert_free_block @ 00015be4
+        mw_prepend_node @ 00015bd0
+        mw_insert_node @ 00015bb0
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_memcpy @ 000143cc
+  mw_setup_c2_connection @ 0000f37c [already visited!]
+  mw_seed_prng @ 0000fc44
+    mw_time @ 00014f54
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_getpid @ 00014cdc
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_getppid @ 00014d08
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_get_timing_entropy @ 00015264
+      mw_times @ 00016f80
+        mw_get_errno_location @ 00015258 [already visited!]
+  mw_memset_zero @ 000143f0
+  mw_xorshift128_ulong @ 0000fbec
+  mw_strlen @ 00014350
+  mw_unsigned_modulo @ 00014a0c
+    mw_noop_0 @ 00014bbc
+  mw_xorshift128_str @ 0000fca0
+    mw_decrypt_with_key @ 00013218 [already visited!]
+    mw_get_table_entry @ 00013134 [already visited!]
+    mw_strcpy_with_offset @ 00015360
+    mw_strlen @ 00014350 [already visited!]
+    mw_unsigned_modulo @ 00014a0c [already visited!]
+    mw_encrypt_with_key @ 00013160 [already visited!]
+  mw_strcpy @ 00014378
+  mw_prctl @ 00014e1c
+    mw_get_errno_location @ 00015258 [already visited!]
+  mw_decrypt_with_key @ 00013218 [already visited!]
+  mw_get_table_entry @ 00013134 [already visited!]
+  mw_write @ 00014fac
+    mw_get_errno_location @ 00015258 [already visited!]
+  mw_encrypt_with_key @ 00013160 [already visited!]
+  mw_init_attack_table @ 00008650
+    mw_calloc @ 00015830
+      mw_unsigned_divide @ 000148fc
+        mw_noop_0 @ 00014bbc [already visited!]
+      mw_get_errno_location @ 00015258 [already visited!]
+      mw_alloc @ 000156dc [already visited!]
+      mw_memset @ 000152c0 [already visited!]
+    mw_udp_plain_flood_payload_4096 @ 0000aba4
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0
+        mw_strtol @ 0001447c
+          mw_unsigned_modulo @ 00014a0c [already visited!]
+          mw_unsigned_divide @ 000148fc [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_bind @ 000153a0
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_connect @ 000153cc [already visited!]
+      mw_send @ 000154b4
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_rand_bytes @ 0000fd6c
+    mw_realloc @ 00015978
+      mw_free @ 00015888
+        mw_noop_1 @ 00016774 [already visited!]
+        mw_insert_free_block @ 00015be4 [already visited!]
+        mw_sbrk @ 00016f28 [already visited!]
+      mw_alloc @ 000156dc [already visited!]
+      mw_noop_1 @ 00016774 [already visited!]
+      mw_search_and_split_free_block @ 00015b24
+      mw_memmove @ 000152a0 [already visited!]
+      mw_insert_free_block @ 00015be4 [already visited!]
+    mw_udp_plain_flood_payload_1024 @ 0000ae88
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_bind @ 000153a0 [already visited!]
+      mw_connect @ 000153cc [already visited!]
+      mw_send @ 000154b4 [already visited!]
+      mw_rand_bytes @ 0000fd6c [already visited!]
+    mw_tcp_null_flood @ 000090fc
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_lookup_ip @ 00008574
+        mw_inet_aton_w @ 0001537c [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_checksum16 @ 0000e0b0
+      mw_tcp_checksum @ 0000e10c
+      mw_sendto @ 000154e0
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_tcp_ack_flood @ 00008988
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_lookup_ip @ 00008574 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_rand_bytes @ 0000fd6c [already visited!]
+      mw_checksum16 @ 0000e0b0 [already visited!]
+      mw_tcp_checksum @ 0000e10c [already visited!]
+      mw_sendto @ 000154e0 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_udp_crafted_flood @ 0000a6e0
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_decrypt_with_key @ 00013218 [already visited!]
+      mw_get_table_entry @ 00013134 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_memcpy @ 000143cc [already visited!]
+      mw_checksum16 @ 0000e0b0 [already visited!]
+      mw_tcp_checksum @ 0000e10c [already visited!]
+      mw_sendto @ 000154e0 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_tcp_rst_flood @ 0000b16c
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_lookup_ip @ 00008574 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_lcg_fibonacci_w @ 00015e20
+        mw_lcg_fibonacci_w @ 00015e24 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_checksum16 @ 0000e0b0 [already visited!]
+      mw_tcp_checksum @ 0000e10c [already visited!]
+      mw_sendto @ 000154e0 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_tcp_ack_psh_flood @ 0000b8b8
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_fcntl @ 00014bc0
+        mw_fcntl64 @ 00014c34
+          mw_get_errno_location @ 00015258 [already visited!]
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_connect @ 000153cc [already visited!]
+      mw_time @ 00014f54 [already visited!]
+      mw_recvfrom @ 00015480
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+      mw_alloc @ 000156dc [already visited!]
+      mw_rand_bytes @ 0000fd6c [already visited!]
+      mw_checksum16 @ 0000e0b0 [already visited!]
+      mw_tcp_checksum @ 0000e10c [already visited!]
+      mw_sendto @ 000154e0 [already visited!]
+    mw_tcp_syn_flood @ 00009848
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_lookup_ip @ 00008574 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_checksum16 @ 0000e0b0 [already visited!]
+      mw_tcp_checksum @ 0000e10c [already visited!]
+      mw_sendto @ 000154e0 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_tcp_xmas_flood @ 00009f94
+      mw_calloc @ 00015830 [already visited!]
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_lookup_ip @ 00008574 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_checksum16 @ 0000e0b0 [already visited!]
+      mw_tcp_checksum @ 0000e10c [already visited!]
+      mw_sendto @ 000154e0 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_http_flood @ 0000c118
+      mw_lookup_raw_value @ 000081cc
+      mw_lookup_key_value @ 000085e0 [already visited!]
+      mw_memset @ 000152c0 [already visited!]
+      mw_strlen @ 00014350 [already visited!]
+      mw_decrypt_with_key @ 00013218 [already visited!]
+      mw_calloc @ 00015830 [already visited!]
+      mw_signed_modulo @ 00014ad8
+        mw_noop_0 @ 00014bbc [already visited!]
+      mw_strcpy @ 00014378 [already visited!]
+      mw_memmove @ 000152b0 [already visited!]
+      mw_xorshift128_ulong @ 0000fbec [already visited!]
+      mw_unsigned_modulo @ 00014a0c [already visited!]
+      mw_time @ 00014f54 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_fcntl @ 00014bc0 [already visited!]
+      mw_setsockopt @ 00015514 [already visited!]
+      mw_connect @ 000153cc [already visited!]
+      mw__newselect @ 00014ea4
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_getsockopt @ 00015424
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_memset_zero @ 000143f0 [already visited!]
+      mw_get_table_entry @ 00013134 [already visited!]
+      mw_encrypt_with_key @ 00013160 [already visited!]
+      mw_itoa @ 000147e4
+        mw_unsigned_modulo @ 00014a0c [already visited!]
+        mw_unsigned_divide @ 000148fc [already visited!]
+      mw_strcmp @ 000146d0
+      mw_send @ 000154b4 [already visited!]
+      mw_recv @ 00015454
+        mw_get_errno_location @ 00015258 [already visited!]
+      mw_strstr @ 00014414
+      mw_strcasestr @ 00014644
+      mw_strtol @ 0001447c [already visited!]
+      mw_strncmp @ 00014754
+      mw_get_errno_location @ 00015258 [already visited!]
+      mw_sleep_w @ 00016564
+        mw_set_bit @ 00015694 [already visited!]
+        mw_rt_sigprocmask @ 00014f00 [already visited!]
+        mw_test_bit @ 00015670 [already visited!]
+        mw_set_signal_handler @ 00016a60 [already visited!]
+        mw_get_errno_location @ 00015258 [already visited!]
+        mw_nanosleep @ 00016efc
+          mw_get_errno_location @ 00015258 [already visited!]
+      mw_memmove @ 000152a0 [already visited!]
+  mw_init_killer @ 0000e1bc
+    mw_time @ 00014f54 [already visited!]
+    mw_fork @ 00014cb0
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_sleep_w @ 00016564 [already visited!]
+    mw_alloc @ 000156dc [already visited!]
+    mw_decrypt_with_key @ 00013218 [already visited!]
+    mw_get_table_entry @ 00013134 [already visited!]
+    mw_strcpy @ 00014378 [already visited!]
+    mw_getpid @ 00014cdc [already visited!]
+    mw_itoa @ 000147e4 [already visited!]
+    mw_open @ 00014db0
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_close @ 00014c84 [already visited!]
+    mw_encrypt_with_key @ 00013160 [already visited!]
+    mw_readlink @ 00014e78
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_memset_zero @ 000143f0 [already visited!]
+    mw_opendir @ 0001508c
+      mw_open @ 00014db0 [already visited!]
+      mw_fstat @ 00016ba0
+        mw_get_errno_location @ 00015258 [already visited!]
+        mw_init_stat_buffer @ 000172bc
+          mw_memset @ 000152c0 [already visited!]
+      mw_fcntl @ 00014bc0 [already visited!]
+      mw_get_errno_location @ 00015258 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+      mw_alloc @ 000156dc [already visited!]
+      mw_calloc @ 00015830 [already visited!]
+      mw_free @ 00015888 [already visited!]
+      mw_noop_1 @ 00016774 [already visited!]
+    mw_readdir @ 00015188
+      mw_noop_1 @ 00016774 [already visited!]
+      mw_noop_2 @ 0001677c
+      mw_process_dirs @ 00016bf0
+        mw_getdents64 @ 00016c84
+          mw_get_errno_location @ 00015258 [already visited!]
+          mw__llseek @ 00016e98
+            mw_get_errno_location @ 00015258 [already visited!]
+          mw_memmove @ 000152a0 [already visited!]
+        mw_memmove @ 000152b0 [already visited!]
+    mw_atoi @ 00016324
+      mw_unsigned_modulo @ 00014a0c [already visited!]
+      mw_unsigned_divide @ 000148fc [already visited!]
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_unsigned_modulo @ 00014a0c [already visited!]
+    mw_closedir @ 00014fd8
+      mw_noop_1 @ 00016774 [already visited!]
+      mw_get_errno_location @ 00015258 [already visited!]
+      mw_noop_2 @ 0001677c [already visited!]
+      mw_free @ 00015888 [already visited!]
+      mw_close @ 00014c84 [already visited!]
+    mw_strcasestr @ 00014644 [already visited!]
+    mw_unlink @ 00014f80
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_kill @ 00014d84
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_getppid @ 00014d08 [already visited!]
+    mw_strcmp @ 000146d0 [already visited!]
+    mw_read @ 00014e4c
+      mw_get_errno_location @ 00015258 [already visited!]
+  mw_watchdog_handler @ 0000f3d0
+    mw_fork @ 00014cb0 [already visited!]
+    mw_decrypt_with_key @ 00013218 [already visited!]
+    mw_get_table_entry @ 00013134 [already visited!]
+    mw_open @ 00014db0 [already visited!]
+    mw_ioctl @ 00014d34
+      mw_get_errno_location @ 00015258 [already visited!]
+    mw_sleep_w @ 00016564 [already visited!]
+    mw_encrypt_with_key @ 00013160 [already visited!]
+    mw_safe_exit @ 000164d0
+      mw_noop_1 @ 00016774 [already visited!]
+      mw_noop_2 @ 0001677c [already visited!]
+      mw_run_exit_handlers @ 00016708
+      mw_exit @ 00016b78
+        mw_get_errno_location @ 00015258 [already visited!]
+  mw_fork @ 00014cb0 [already visited!]
+  mw_setsid @ 00014ed4
+    mw_get_errno_location @ 00015258 [already visited!]
+  mw_close @ 00014c84 [already visited!]
+  mw_scanner @ 000100c8
+    mw_fork @ 00014cb0 [already visited!]
+    mw_get_local_ip @ 000145a8 [already visited!]
+    mw_seed_prng @ 0000fc44 [already visited!]
+    mw_time @ 00014f54 [already visited!]
+    mw_calloc @ 00015830 [already visited!]
+    mw_socket @ 00015544 [already visited!]
+    mw_fcntl @ 00014bc0 [already visited!]
+    mw_setsockopt @ 00015514 [already visited!]
+    mw_xorshift128_ulong @ 0000fbec [already visited!]
+    mw_decrypt @ 0000ff24
+      mw_realloc @ 00015978 [already visited!]
+      mw_strlen @ 00014350 [already visited!]
+      mw_alloc @ 000156dc [already visited!]
+      mw_memcpy @ 000143cc [already visited!]
+    mw_checksum16 @ 0000e0b0 [already visited!]
+    mw_tcp_checksum @ 0000e10c [already visited!]
+    mw_sendto @ 000154e0 [already visited!]
+    mw_get_errno_location @ 00015258 [already visited!]
+    mw_recvfrom @ 00015480 [already visited!]
+    mw_setup_connection @ 0000fe50
+      mw_close @ 00014c84 [already visited!]
+      mw_socket @ 00015544 [already visited!]
+      mw_memset_zero @ 000143f0 [already visited!]
+      mw_fcntl @ 00014bc0 [already visited!]
+      mw_connect @ 000153cc [already visited!]
+    mw_close @ 00014c84 [already visited!]
+    mw__newselect @ 00014ea4 [already visited!]
+    mw_getsockopt @ 00015424 [already visited!]
+    mw_unsigned_modulo @ 00014a0c [already visited!]
+    mw_decrypt_with_key @ 00013218 [already visited!]
+    mw_get_table_entry @ 00013134 [already visited!]
+    mw_strstr @ 00014414 [already visited!]
+    mw_encrypt_with_key @ 00013160 [already visited!]
+    mw_recv @ 00015454 [already visited!]
+    mw_send @ 000154b4 [already visited!]
+    mw_memmove @ 000152b0 [already visited!]
+    mw_memmove @ 000152a0 [already visited!]
+    mw_inet_aton_w @ 0001537c [already visited!]
+    mw_connect @ 000153cc [already visited!]
+  mw__newselect @ 00014ea4 [already visited!]
+  mw_signed_modulo @ 00014ad8 [already visited!]
+  mw_sleep_w @ 00016564 [already visited!]
+  mw_get_errno_location @ 00015258 [already visited!]
+  mw_recv @ 00015454 [already visited!]
+  mw_socket @ 00015544 [already visited!]
+  mw_fcntl @ 00014bc0 [already visited!]
+  mw_connect @ 000153cc [already visited!]
+  mw_getsockopt @ 00015424 [already visited!]
+  mw_send @ 000154b4 [already visited!]
+  mw_process_c2_cmd @ 00008320
+    mw_calloc @ 00015830 [already visited!]
+    mw_memcpy @ 000143cc [already visited!]
+    mw_get_errno_location @ 00015258 [already visited!]
+    mw_start_attack @ 00008230
+      mw_fork @ 00014cb0 [already visited!]
+      mw_sleep_w @ 00016564 [already visited!]
+      mw_getppid @ 00014d08 [already visited!]
+      mw_kill @ 00014d84 [already visited!]
+      mw_safe_exit @ 000164d0 [already visited!]
+    mw_free @ 00015888 [already visited!]
+
+OrderedCallGraphGenerator.java> Finished!
+```
