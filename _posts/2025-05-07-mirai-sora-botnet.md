@@ -39,7 +39,7 @@ $ sha256sum < mirai.elf
 ad772931b53729665b609f0aaa712e7bc3245495c85162857388cf839efbc5c2  -
 ```
 
-## Overview
+### Overview
 
 The binary is statically linked and the section headers are stripped. The missing section headers can be an indicator of packing.
 
@@ -126,7 +126,7 @@ ERROR    capa:  capa currently only supports analyzing x86 (32- and 64-bit).    
 ERROR    capa: --------------------------------------------------------------------------------         helpers.py:342
 ```
 
-## Static analysis (Ghidra)
+### Static analysis (Ghidra)
 
 The binary is stripped, so Ghidra gives names to symbols like `FUN_<address>`, `DAT_<address>`, etc. after it runs its initial analysis. During the manual analysis, some symbols (mainly functions and some global variables, e.g. encryption key) have been renamed, for example `FUN_000154e0` --> `mw_sendto`.
 Since there are not many strings stored as plain text, they cannot be used to identify important functions and start tracking them in the code. Instead, we locate the main function based on its signature and start from there:
@@ -172,7 +172,7 @@ File: /usr/arm-linux-gnueabi/lib/libc.a(getsockname.o)
     10: 00000000     0 NOTYPE  GLOBAL HIDDEN    UND __getsockname
    124: 00000000     0 NOTYPE  GLOBAL HIDDEN    UND __getsockname
 ```
-### Call graph of `mw_main` (depth: 1 level)
+#### Call graph of `mw_main` (depth: 1 level)
 
 Call graphs are a great way to get a quick high-level overview, then the functions of interest can (and will) be thoroughly analyzed later.
 
@@ -218,7 +218,7 @@ Outgoing References - mw_main
     mw_process_c2_cmd
 ```
 
-### Encrypted configuration
+#### Encrypted configuration
 
 To make analysis more difficult, the malware contains its configuration data encrypted. The encrypted data blocks are decrypted during runtime and re-encrypted immediately after use. Both the encryption key and the algorithm can be found in the binary. The implemented decryption script is available [here](https://github.com/gemesa/ghidra-scripts/). The encryption key [in the original code](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/table.c#L13) is `0xdeadbeef`. The authors of this SORA variant left in the code a lot of configuration data encrypted with the original key, but they changed the key and added additional configurations encrypted with the new key. In some places the malware tries to decrypt data encrypted with `0xdeadbeef` using the key `0xdedefbaf` which results in garbage data. For this reason some functionalities of the malware will not work properly (detailed later). It seems like this sample is a SORA fork because there are SORA strings encrypted with different keys, e.g. `1337SoraLOADER` with `0xdeadbeef`, `SORA: applet not found` and `/bin/busybox SORA` with `0xdedefbaf`.
 
@@ -378,7 +378,7 @@ MiraiConfigExtractorSORAArm.java> 00020e6c - 00000001 - 00017cf0 - sV (73 56)
 MiraiConfigExtractorSORAArm.java> Finished!
 ```
 
-### Encrypted credentials
+#### Encrypted credentials
 
 This variant spreads by targeting devices with telnet running and weak credentials. These credentials are also hardcoded into the binary and encrypted (via a different algorithm). The implemented decryption script is available [here](https://github.com/gemesa/ghidra-scripts/).
 
@@ -430,7 +430,7 @@ MiraiCredentialExtractorSORAArm.java> ("adm" : "")
 MiraiCredentialExtractorSORAArm.java> Finished!
 ```
 
-### Signal handling and C2 address setup
+#### Signal handling and C2 address setup
 
 The signal `SIGINT` (Ctrl + C) is blocked and the child signals are ignored. A signal handler is set for `SIGTRAP` which is an anti debugger feature. In the leaked version the code initializes the C2 address with a [fake IP](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/main.c#L106) and later also [raises](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/main.c#L114) a `SIGTRAP`. When a debugger is attached, it will catch the `SIGTRAP` and the malware will use the fake C2 server. If no debugger is attached, the C2 address will be overwritten with the real one.
 
@@ -492,7 +492,7 @@ void mw_setup_c2_connection(void)
 }
 ```
 
-### Hiding `argv[1]`
+#### Hiding `argv[1]`
 
 `argv[1]` (the first command line argument) is backed up for later use and then cleared. Based on the surrounding code it is likely a unique ID which is sent to the C2 server later.
 
@@ -518,7 +518,7 @@ undefined4 mw_main(int param_1,undefined4 *param_2)
 ...
 ```
 
-### Hiding `argv[0]`
+#### Hiding `argv[0]`
 
 `argv[0]` (the program name) is overwritten by a random generated string.
 
@@ -540,7 +540,7 @@ undefined4 mw_main(int param_1,undefined4 *param_2)
 ...
 ```
 
-### Hiding the process name
+#### Hiding the process name
 
 The process name is also overwritten by an other random generated string.
 
@@ -559,7 +559,7 @@ undefined4 mw_main(int param_1,undefined4 *param_2)
 ...
 ```
 
-### `mw_get_local_ip`
+#### `mw_get_local_ip`
 
 `mw_get_local_ip` creates a UDP socket to 8.8.8.8:53 and uses `getsockname()` to determine the device's local IP address, which is used by the leaked version to ensure only a [single instance is running](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/main.c#L432) on the machine (in this variant there is no such check implemented) and as source address in the crafted attack packets.
 
@@ -610,7 +610,7 @@ void mw_tcp_null_flood(uint param_1,int param_2,uint param_3,int *param_4)
 ...
 ```
 
-### `mw_init_encrypted_config`
+#### `mw_init_encrypted_config`
 
 `mw_init_encrypted_config` copies the encrypted configuration data from `.rodata` to heap blocks. Later the code only decrypts each config data block for a short period of time when necessary before encrypting them again. The data blocks are referenced indirectly by the base config address plus an offset value (see `mw_decrypt_with_key`, `mw_get_table_entry` and `mw_encrypt_with_key` below).
 
@@ -633,7 +633,7 @@ void mw_init_encrypted_config(void)
 ...
 ```
 
-### `mw_seed_prng`
+#### `mw_seed_prng`
 
 `mw_seed_prng` initializes the seed for the xorshift128 pseudo random generator.
 
@@ -665,7 +665,7 @@ uint mw_get_timing_entropy(void)
 }
 ```
 
-### `mw_xorshift128_ulong`
+#### `mw_xorshift128_ulong`
 
 A description for the xorshift128 algorithm can be found [here](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.jstatsoft.org/article/view/v008i14/916&ved=2ahUKEwiaypaAlI2NAxXjg4kEHYyiC18QFnoECBYQAQ&usg=AOvVaw3GFJzLacrHh5-u-rvj9a-F). It is used to generate random values (e.g. source port numbers) for attack packets.
 
@@ -697,7 +697,7 @@ void mw_tcp_null_flood(uint param_1,int param_2,uint param_3,int *param_4)
 ...
 ```
 
-### `mw_xorshift128_str`
+#### `mw_xorshift128_str`
 
 `mw_xorshift128_str` uses the same xorshift128 algorithm but generates strings instead. It is used to generate random program and process names (see chapter "Hiding `argv[0]`" and "Hiding the process name").
 
@@ -734,7 +734,7 @@ void mw_xorshift128_str(int param_1,int param_2)
 }
 ```
 
-### `mw_decrypt_with_key`, `mw_get_table_entry` and `mw_encrypt_with_key`
+#### `mw_decrypt_with_key`, `mw_get_table_entry` and `mw_encrypt_with_key`
 
 `mw_decrypt_with_key` decrypts the configuration data blocks initialized earlier by `mw_init_encrypted_config`. The data blocks can be chosen by their ID (offset). The decrypted data is available via `mw_get_table_entry` and is re-encrypted via `mw_encrypt_with_key` after it has been used and is no longer necessary to be available in plain form. Example usage (config ID = 0x4a): 
 
@@ -834,7 +834,7 @@ void mw_encrypt_with_key(uint param_1)
 }
 ```
 
-### `mw_init_attack_table`
+#### `mw_init_attack_table`
 
 `mw_init_attack_table` initializes the attack table with different attack vectors (UDP/TCP/HTTP DDoS variants). The HTTP flood might not work properly because the necessary configuration has been encrypted with the key `0xdeadbeef` but this variant uses `0xdedefbaf`. This means the decrypted data (e.g. the [user agents](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/table.h#L69)) will be garbage. Showing the lengthy implementation of `mw_init_attack_table` and the attack vectors does not add much value so only the call graph is discussed:
 
@@ -870,7 +870,7 @@ The [original code](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1
 - `attack_gre_eth`
 - `attack_app_http`
 
-### `mw_init_killer`
+#### `mw_init_killer`
 
 `mw_init_killer` resolves its own binary path (for later use) and iterates over the `/proc` directory and searches for different processes.
 
@@ -988,7 +988,7 @@ void mw_init_killer(void)
 ...
 ```
 
-### `mw_watchdog_handler`
+#### `mw_watchdog_handler`
 
 `mw_watchdog_handler` disables the watchdog and keeps sending keepalives (in case the disabling did not work).
 
@@ -1032,7 +1032,7 @@ Relevant references can be found here:
 - [https://android.googlesource.com/platform/system/sepolicy/+/ae46511bfa62b56938b3df824bb2ee737dceaa7a/ioctl_defines#1781](https://android.googlesource.com/platform/system/sepolicy/+/ae46511bfa62b56938b3df824bb2ee737dceaa7a/ioctl_defines#1781)
 - [https://github.com/torvalds/linux/blob/02ddfb981de88a2c15621115dd7be2431252c568/include/uapi/linux/watchdog.h](https://github.com/torvalds/linux/blob/02ddfb981de88a2c15621115dd7be2431252c568/include/uapi/linux/watchdog.h)
 
-### `mw_scanner`
+#### `mw_scanner`
 
 The implementation of `mw_scanner` is identical to the [original one](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/scanner.c). The only difference is in the hardcoded credentials (see chapter "Encrypted credentials" above).
 
@@ -1042,16 +1042,16 @@ High level overview:
 3. if successfully authenticated, reports the vulnerable target along with the credentials to the C2
 4. C2 handles the loading of the proper variant depending on the architecture
 
-### `mw_process_c2_cmd`
+#### `mw_process_c2_cmd`
 
 `mw_process_c2_cmd` handles the parsing of the received C2 commands and initiating different attack vectors. The implementation is identical to the [original one](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/attack.c#L64).
 
-### `mw_start_attack`
+#### `mw_start_attack`
 
 `mw_start_attack` is invoked by `mw_process_c2_cmd` and handles the launch of the attack vectors. The implementation is identical to the [original one](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/attack.c#L155).
 
 
-### Additional observations
+#### Additional observations
 
 The malware prints `Connected to CNC` even without network connection during startup. This is the only message printed because it closes the standard file descriptors:
 
@@ -1074,9 +1074,9 @@ undefined4 mw_main(int param_1,undefined4 *param_2)
 
 This variant does not implement the [`ensure_single_instance`](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/main.c#L420) and [self-termination](https://github.com/jgamblin/Mirai-Source-Code/blob/3273043e1ef9c0bb41bd9fcdc5317f7b797a2a94/mirai/bot/main.c#L211) mechanisms.
 
-## Dynamic analysis
+### Dynamic analysis
 
-### Prerequisites
+#### Prerequisites
 
 Mirai (or at least this variant) works with BusyBox `telnetd` only (e.g. not with Ubuntu `telnetd` or Fedora `telnet-server`). `telnetd` starts a telnet server (port 23). `inetsim` is used to host a HTTP (port 80) and a DNS (port 53) server. The IP address of the isolated VM is 192.168.56.128, and the telnet, HTTP and DNS traffic (sent by Mirai) are redirected to this address. Only a subset of the telnet traffic is redirected, otherwise the telnet server would be overwhelmed. With this setup the malware can discover devices (in the 200.200.0.0/16 IP range) with telnet service enabled, can determine the local IP (see `mw_get_local_ip`) and also can connect to the fake C2 server. Since the details of the real C2 server(s) are unknown, this fake one can only accept connections.
 
@@ -1091,7 +1091,7 @@ sudo iptables -t nat -A POSTROUTING -o lo -j MASQUERADE
 
 After the setup, start capturing with Wireshark.
 
-### Run
+#### Run
 
 ```
 sudo strace -v -f -s 1024 -o strace.log ./mirai-unpacked.elf
@@ -1181,13 +1181,13 @@ $ tshark -r mirai.pcap -Y "ip.addr==154.7.253.207"
 ...
 ```
 
-## IOCs
+### IOCs
 
-### YARA
+#### YARA
 
 Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
-#### Packed binary
+##### Packed binary
 
 ```
 import "elf"
@@ -1244,7 +1244,7 @@ rule mirai_sora_packed_arm {
 }
 ```
 
-#### Unpacked binary
+##### Unpacked binary
 
 ```
 import "elf"
@@ -1341,7 +1341,7 @@ rule mirai_sora_unpacked_arm {
 }
 ```
 
-### Suricata
+#### Suricata
 
 Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
