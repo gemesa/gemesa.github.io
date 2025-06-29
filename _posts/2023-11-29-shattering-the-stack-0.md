@@ -12,7 +12,7 @@ published: true
 
 When a program blindly copies data into a buffer without checking its size, it risks overrunning the buffer's capacity. This vulnerability can lead to various exploits, the most critical being the execution of arbitrary code. Attackers often exploit buffer overflows to alter a program's execution flow, allowing them to execute malicious code.
 
-This post is an introduction to the world of buffer overflows. The source code can be found [here](https://github.com/gemesa/shadow-shell).
+This post is an introduction to the world of buffer overflows. The source code can be found [here](https://github.com/gemesa/exploit-lab).
 
 ### vulnerable code
 
@@ -177,7 +177,7 @@ GNU gdb (GDB) Fedora Linux 13.2-6.fc38
 (gdb) b main
 Breakpoint 1 at 0x4011eb: file lab/bof-server.c, line 41.
 (gdb) r
-Starting program: /home/gemesa/git-repos/shadow-shell/build/bof-server
+Starting program: /home/gemesa/git-repos/exploit-lab/build/bof-server
 ...
 Breakpoint 1, main () at lab/bof-server.c:41
 41	    authenticate();
@@ -314,11 +314,11 @@ $ ps a | grep bof-server
   34893 pts/1    S+     0:00 ./build/bof-server
 ...
 $ cat /proc/34893/maps  
-5642eefa0000-5642eefa1000 r--p 00000000 00:25 11545801                   /home/gemesa/git-repos/shadow-shell/build/bof-server
-5642eefa1000-5642eefa2000 r-xp 00001000 00:25 11545801                   /home/gemesa/git-repos/shadow-shell/build/bof-server
-5642eefa2000-5642eefa3000 r--p 00002000 00:25 11545801                   /home/gemesa/git-repos/shadow-shell/build/bof-server
-5642eefa3000-5642eefa4000 r--p 00002000 00:25 11545801                   /home/gemesa/git-repos/shadow-shell/build/bof-server
-5642eefa4000-5642eefa5000 rw-p 00003000 00:25 11545801                   /home/gemesa/git-repos/shadow-shell/build/bof-server
+5642eefa0000-5642eefa1000 r--p 00000000 00:25 11545801                   /home/gemesa/git-repos/exploit-lab/build/bof-server
+5642eefa1000-5642eefa2000 r-xp 00001000 00:25 11545801                   /home/gemesa/git-repos/exploit-lab/build/bof-server
+5642eefa2000-5642eefa3000 r--p 00002000 00:25 11545801                   /home/gemesa/git-repos/exploit-lab/build/bof-server
+5642eefa3000-5642eefa4000 r--p 00002000 00:25 11545801                   /home/gemesa/git-repos/exploit-lab/build/bof-server
+5642eefa4000-5642eefa5000 rw-p 00003000 00:25 11545801                   /home/gemesa/git-repos/exploit-lab/build/bof-server
 ...
 ```
 
@@ -329,11 +329,11 @@ $ ps a | grep bof-server
   35154 pts/1    S+     0:00 ./build/bof-server
 ...                                                                                                                  
 $ cat /proc/35154/maps                   
-00400000-00401000 r--p 00000000 00:25 11545797                           /home/gemesa/git-repos/shadow-shell/build/bof-server
-00401000-00402000 r-xp 00001000 00:25 11545797                           /home/gemesa/git-repos/shadow-shell/build/bof-server
-00402000-00403000 r--p 00002000 00:25 11545797                           /home/gemesa/git-repos/shadow-shell/build/bof-server
-00403000-00404000 r--p 00002000 00:25 11545797                           /home/gemesa/git-repos/shadow-shell/build/bof-server
-00404000-00405000 rw-p 00003000 00:25 11545797                           /home/gemesa/git-repos/shadow-shell/build/bof-server
+00400000-00401000 r--p 00000000 00:25 11545797                           /home/gemesa/git-repos/exploit-lab/build/bof-server
+00401000-00402000 r-xp 00001000 00:25 11545797                           /home/gemesa/git-repos/exploit-lab/build/bof-server
+00402000-00403000 r--p 00002000 00:25 11545797                           /home/gemesa/git-repos/exploit-lab/build/bof-server
+00403000-00404000 r--p 00002000 00:25 11545797                           /home/gemesa/git-repos/exploit-lab/build/bof-server
+00404000-00405000 rw-p 00003000 00:25 11545797                           /home/gemesa/git-repos/exploit-lab/build/bof-server
 ...
 ```
 

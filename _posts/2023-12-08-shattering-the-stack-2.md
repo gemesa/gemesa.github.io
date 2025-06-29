@@ -10,7 +10,7 @@ published: true
 
 ### Introduction
 
-This post builds upon the previous ones: [Shattering the stack (1)](https://shadowshell.io/shattering-the-stack-1) where we got familiar with some basic buffer overflow exploits and the ASLR, and [Diving into shellcodes (0)](https://shadowshell.io/diving-into-shellcodes-0) where we explored some simple shellcodes. Now we take a step further to execute arbitrary code in situations where the stack is executable. The source code is available [here](https://github.com/gemesa/shadow-shell).
+This post builds upon the previous ones: [Shattering the stack (1)](https://shadowshell.io/shattering-the-stack-1) where we got familiar with some basic buffer overflow exploits and the ASLR, and [Diving into shellcodes (0)](https://shadowshell.io/diving-into-shellcodes-0) where we explored some simple shellcodes. Now we take a step further to execute arbitrary code in situations where the stack is executable. The source code is available [here](https://github.com/gemesa/exploit-lab).
 
 ### vulnerable code
 
@@ -263,7 +263,7 @@ $ setarch `uname -m` -R /bin/bash
 $ gdb build/bof-server-pie2
 ...
 (gdb) r < lab/buffer-overflow/payload-touch 
-Starting program: /home/gemesa/git-repos/shadow-shell/build/bof-server-pie2 < lab/buffer-overflow/payload-touch
+Starting program: /home/gemesa/git-repos/exploit-lab/build/bof-server-pie2 < lab/buffer-overflow/payload-touch
 
 This GDB supports auto-downloading debuginfo from the following URLs:
   <https://debuginfod.fedoraproject.org/>
@@ -299,7 +299,7 @@ drwxr-xr-x. 1 gemesa gemesa    26 Nov 29 10:18 .vscode
 $ gdb build/bof-server-pie2
 ...
 (gdb) r < lab/buffer-overflow/payload-rm
-Starting program: /home/gemesa/git-repos/shadow-shell/build/bof-server-pie2 < lab/buffer-overflow/payload-rm
+Starting program: /home/gemesa/git-repos/exploit-lab/build/bof-server-pie2 < lab/buffer-overflow/payload-rm
 
 This GDB supports auto-downloading debuginfo from the following URLs:
   <https://debuginfod.fedoraproject.org/>
