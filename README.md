@@ -30,10 +30,25 @@ If you want to see the changes before pushing the blog to Github, do a local bui
 
 ### Local build using docker
 
+#### Linux
+
 ```bash
 docker run --rm -p 8000:8000 \
   --volume="$(pwd):/srv/jekyll" \
   -it tocttou/jekyll:3.5 \
+  jekyll serve --watch --port 8000
+```
+
+Visit `http://localhost:8000/` to access the blog.
+
+*Note: In case you have set a `baseurl` different than `/` in `_config.yml`, go to `http://0.0.0.0:8000/BASEURL/` instead.*
+
+#### macOS
+
+```bash
+docker run --rm -p 8000:8000 \
+  --volume="$(pwd):/srv/jekyll" \
+  -it jekyll/jekyll:4.2.0 \
   jekyll serve --watch --port 8000
 ```
 
