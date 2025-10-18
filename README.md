@@ -32,12 +32,12 @@ If you want to see the changes before pushing the blog to Github, do a local bui
 
 ```bash
 docker run --rm -p 8000:8000 \
-  --volume="LOCATION_OF_YOUR_JEKYLL_BLOG:/srv/jekyll" \
+  --volume="$(pwd):/srv/jekyll" \
   -it tocttou/jekyll:3.5 \
   jekyll serve --watch --port 8000
 ```
 
-Replace `LOCATION_OF_YOUR_JEKYLL_BLOG` with the full path of your blog repository. Visit `http://localhost:8000/` to access the blog.
+Visit `http://localhost:8000/` to access the blog.
 
 *Note: In case you have set a `baseurl` different than `/` in `_config.yml`, go to `http://0.0.0.0:8000/BASEURL/` instead.*
 
