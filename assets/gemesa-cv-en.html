@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>resume.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<style>
+html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: block;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0;
+    font-family: Roboto;
+    font-size: 14px;
+}
+
+.name {
+    font-size: 150%;
+    line-height: 150%;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
+
+h1 {
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 2px solid black !important;
+    color: #0D47A1;
+    margin: 10px 0 5px 0;
+    padding: 0 0 2px 0;
+}
+
+h3 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 5px 0 0 0;
+}
+
+h4 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.25em 0;
+}
+
+p, ul {
+    font-size: 100%;
+    margin: 0;
+}
+
+ul, ol {
+    padding: 0 0 0 1.5rem;
+    margin: 0;
+}
+
+li {
+    line-height: 150%;
+    /* change this for tighter spacing */
+    /* default 150% */
+}
+
+/* assume images are icons */
+/* icons for skills/tools */
+.info img {
+    width: 12px;
+}
+
+/* assume images are icons */
+/* icons for contact info */
+.info a img {
+    width: 12px;
+}
+
+a {
+    color: #0D47A1;
+    text-decoration: underline;
+}
+
+code {
+    color: black;
+}
+
+time {
+    float: right;
+    font-size: inherit;
+    font-weight: bold;
+}
+
+location {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.info {
+    display: block;
+    text-align: center;
+}
+
+@media print {
+    h2 {
+        break-after: avoid;
+        /* Avoid breaking right after h2 */
+    }
+
+    h3 {
+        break-after: avoid;
+        /* Avoid breaking right after h3 */
+    }
+
+    h3~p,
+    h3~ul,
+    h3~ol,
+    h3~blockquote {
+        /* Add other tags as necessary */
+        break-before: avoid;
+        /* Avoid breaking right before these elements if they follow an h3 */
+    }
+
+    h3~h3 {
+        break-before: auto;
+        /* Allow breaks before a new h3, overriding previous rules */
+    }
+}
+</style>
+<p><span class="name">András Gémes</span></p>
+<span class="info">
+<p><a target="_blank" href="https://shadowshell.io">shadowshell.io</a> | <a target="_blank" href="https://github.com/gemesa">github.com/gemesa</a> | <a target="_blank" href="https://www.linkedin.com/in/gemesa/">linkedin.com/gemesa</a> | <a href="mailto:gemesa@protonmail.com">gemesa@protonmail.com</a></p>
+</span>
+<h2 id="summary">Summary</h2>
+<p>Compiler engineer and reverse engineer with embedded systems background and 7 years of cybersecurity experience. <a target="_blank" href="https://shadowshell.io">Hands-on experience</a> in binary analysis, reverse engineering and malware analysis. Certified in <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Security+%20ce%20certificate.pdf">Sec+</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Advanced%20Security%20Practitioner%20(CASP%2B)%20ce%20certificate.pdf">CASP+</a>/<a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20SecurityX%20ce%20certificate.pdf">SecX</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/ECC-CEH-Certificate.pdf">CEH</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/certificate-of-completion-for-practical-malware-analysis-triage.pdf">PMAT</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/certificate-introduction-to-malware-binary-triage-659810f22df9c925d6089fcb.pdf">IMBT</a> and <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/">others</a>. Looking to apply my expertise as a security engineer, reverse engineer or malware analyst.</p>
+<h2 id="work-experience">Work experience</h2>
+<h3 id="compiler-engineer--reverse-engineer-location--hightec-edv-systeme-gmbh---budapest-hungary-location-time-feb-2023-%E2%80%93-present-time">Compiler Engineer | Reverse Engineer <location> @ HighTec EDV-Systeme GmbH - Budapest, Hungary </location> <time> Feb 2023 – Present </time></h3>
+<ul>
+<li>Obfuscating the HighTec Rust toolchain binaries against reverse engineering</li>
+<li>Representing HighTec as a <a target="_blank" href="https://github.com/llvm/llvm-project/pull/124142">member of the LLVM security group</a></li>
+<li>Implementing custom LLVM-based obfuscator pass plugins</li>
+</ul>
+<h3 id="application-security-engineer-location--knorr-bremse---budapest-hungary-location-time-may-2018-%E2%80%93-jan-2023-time">Application Security Engineer <location> @ Knorr-Bremse - Budapest, Hungary </location> <time> May 2018 – Jan 2023 </time></h3>
+<ul>
+<li>Developed and maintained iOS and Android apps for real-time vehicle data visualization</li>
+<li>Implemented and evaluated static application security testing across embedded C codebases</li>
+<li>Resolved embedded systems vulnerabilities discovered through AFL++ fuzzing</li>
+</ul>
+<h2 id="technical-skills">Technical skills</h2>
+<p><strong>Programming languages:</strong> C, C++, Rust, Objective-C, Swift, Python 3, Java, Assembly (ARM64, x86-64), Bash</p>
+<p><strong>Reverse engineering (static):</strong> Ghidra, IDA, otool, llvm-objdump, ipsw, Apktool, jadx, Binwalk, capa, YARA, DiE</p>
+<p><strong>Reverse engineering (dynamic)</strong>: LLDB, GDB, Frida, DTrace, ADB, eBPF, strace, QEMU, Qiling, VirtualBox, x64dbg</p>
+<p><strong>Vulnerability research</strong>: checksec, ROPgadget, AFL++, ASan, MSan, TSan, UBSan</p>
+<p><strong>Network analysis and protocols</strong>: Wireshark, Suricata, Zeek, FakeNet-NG, INetSim, TCP, UDP, HTTP, HTTPS, DNS</p>
+<p><strong>Platforms and DevOps tools:</strong> Linux (Fedora, Ubuntu), macOS, Windows, Git, Docker, GitHub Actions, Jenkins</p>
+<p><strong>Embedded systems and protocols:</strong> STM32, ESP32, Wi-Fi, CAN, SPI, UART, I2C</p>
+<h2 id="certifications">Certifications</h2>
+<p><a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Security+%20ce%20certificate.pdf">CompTIA Security+</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Advanced%20Security%20Practitioner%20(CASP%2B)%20ce%20certificate.pdf">CompTIA CASP+</a>/<a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20SecurityX%20ce%20certificate.pdf">SecurityX</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/ECC-CEH-Certificate.pdf">EC-Council CEH</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/certificate-of-completion-for-practical-malware-analysis-triage.pdf">TCM Security PMAT</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/certificate-introduction-to-malware-binary-triage-659810f22df9c925d6089fcb.pdf">Invoke RE IMBT</a> and <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/">others</a>.</p>
+<h2 id="open-source-contributions">Open source contributions</h2>
+<ul>
+<li><a target="_blank" href="https://github.com/NationalSecurityAgency/ghidra">ghidra</a>: contributing bug reports and patches to Ghidra, focusing on the BSim, Debugger and FunctionID features</li>
+<li><a target="_blank" href="https://shadowshell.io/phantom-pass/">phantom-pass</a>: implementing custom LLVM-based obfuscator pass plugins</li>
+<li><a target="_blank" href="https://github.com/open-obfuscator/o-mvll">o-mvll</a>: improving the LLVM-based iOS code obfuscator passes and diagnostics</li>
+<li><a target="_blank" href="https://shadowshell.io/rust-arm64/">rust-arm64</a>: writing a Rust book (<em>Rust to assembly: ARM64 patterns</em>)</li>
+<li><a target="_blank" href="https://github.com/gemesa/shadow-shell">shadow-shell</a>: developing a cyber lab for shellcode analysis, using Assembly and C</li>
+</ul>
+<h2 id="education">Education</h2>
+<h3 id="msc-in-mechatronics-engineering-time-feb-2016-%E2%80%93-june-2018-time">MSc in Mechatronics Engineering <time> Feb 2016 – June 2018 </time></h3>
+<p><location> Budapest University of Technology and Economics - Budapest, Hungary </location></p>
+<h3 id="bsc-in-mechatronics-engineering-time-sept-2012-%E2%80%93-jan-2016-time">BSc in Mechatronics Engineering <time> Sept 2012 – Jan 2016 </time></h3>
+<p><location> University of Pannonia - Veszprém, Hungary </location></p>
+<h2 id="continuous-education">Continuous education</h2>
+<p>Currently I am actively learning on <a target="_blank" href="https://tryhackme.com/r/p/gemesa">TryHackMe</a> and reading <a target="_blank" href="https://www.kodeco.com/books/advanced-apple-debugging-reverse-engineering">Advanced Apple Debugging &amp; Reverse Engineering</a>.</p>
+
+</body>
+</html>
