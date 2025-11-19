@@ -25,7 +25,7 @@ If properly weaponized with root access (`su -c logcat` on a rooted device), the
 
 After installation, the app displays a fake "device unsupported" error to make victims think it failed.
 
-![app preview]({{site.baseurl}}/assets/fake-chrome-updater/preview.png)
+![app preview]({{site.baseurl}}/assets/fake-chrome-updater/preview.png){:.small-image}
 
 The malware continuously captures system-wide logs (containing possibly sensitive information) and broadcasts them to Sketchware Pro's [LogReader](https://github.com/Sketchware-Pro/Sketchware-Pro/blob/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/java/mod/khaled/logcat/LogReaderActivity.java) via `pro.sketchware.ACTION_NEW_DEBUG_LOG` intents. The attacker then socially engineers the victim to share the debug logs containing all captured sensitive data. Alternatively, a companion malicious app could listen for these broadcasts and automatically exfiltrate the data to a remote server, eliminating the need for manual social engineering.
 
