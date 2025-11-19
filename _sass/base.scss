@@ -159,6 +159,7 @@ ul li {
 
 blockquote {
   color: $blockquote-color;
+  margin-left: 0;
   padding-left: 10px;
   border-left: 1px dotted $blockquote-border;
 }
