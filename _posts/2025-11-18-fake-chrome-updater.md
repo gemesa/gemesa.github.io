@@ -473,7 +473,7 @@ public final class c {
 }
 ```
 
-Using the code above, we can implement a decoder. We can use it to decode the alert and button strings, and to cross-reference the obfuscated strings with the ones in the original [SketchWare Pro sources](https://github.com/Sketchware-Pro/Sketchware-Pro/tree/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/assets/debug). It can also encode plain strings, in case we want to decode, modify and rebuild the app, e.g. with [`Apktool`](https://github.com/iBotPeaches/Apktool).
+Using the code above, we can implement a decoder. We can use it to decode the alert and button strings, and to cross-reference the obfuscated strings with the ones in the original [Sketchware Pro sources](https://github.com/Sketchware-Pro/Sketchware-Pro/tree/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/assets/debug). It can also encode plain strings, in case we want to decode, modify and rebuild the app, e.g. with [`Apktool`](https://github.com/iBotPeaches/Apktool).
 
 ```java
 import java.util.Base64;
