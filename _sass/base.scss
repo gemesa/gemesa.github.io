@@ -24,6 +24,11 @@ body {
 
 /* General & 'Reset' Stuff */
 
+.small-image {
+  max-width: 400px;
+  height: auto;
+}
+
 .container {
   width: 90%;
   max-width: 1000px;
