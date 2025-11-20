@@ -14,7 +14,9 @@ In this post we will analyze a randomly picked [Android sample](https://bazaar.a
 
 ## Executive summary
 
-The [analyzed sample](https://bazaar.abuse.ch/sample/59bb681961028642190f780266e2932a0f928b6ec44881165e1cecd0988c8029/) is a [Sketchware Pro application](https://github.com/Sketchware-Pro/Sketchware-Pro/blob/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/assets/debug/SketchApplication.java) disguised as a Chrome updater with obfuscated strings. It runs `logcat` commands without privilege escalation (`su`), so it cannot actually capture system-wide logs. It only grabs its own app's output and exits, which from spyware perspective makes it useless.
+The [analyzed sample](https://bazaar.abuse.ch/sample/59bb681961028642190f780266e2932a0f928b6ec44881165e1cecd0988c8029/) is a [Sketchware Pro application](https://github.com/Sketchware-Pro/Sketchware-Pro/blob/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/assets/debug/SketchApplication.java) disguised as a Chrome updater with obfuscated strings. After start, it immediately shows an "This app can't run on your device." alert and when the user taps the "OK" button, it exits. In the background it runs `logcat` commands without privilege escalation (`su`), meaning it cannot capture system-wide logs. It only grabs its own app's output, which from a spyware perspective makes it useless. There is no other functionality implemented.
+
+![app preview]({{site.baseurl}}/assets/fake-chrome-updater/preview.png){:.small-image}
 
 This sample is likely either:
 - Incomplete/abandoned malware: started but never finished
@@ -23,11 +25,7 @@ This sample is likely either:
 
 If properly weaponized with root access (`su -c logcat` on a rooted device), the intended attack flow could work like this:
 
-After installation, the app displays a fake "device unsupported" error to make victims think it failed.
-
-![app preview]({{site.baseurl}}/assets/fake-chrome-updater/preview.png){:.small-image}
-
-The malware continuously captures system-wide logs (containing possibly sensitive information) and broadcasts them to Sketchware Pro's [LogReader](https://github.com/Sketchware-Pro/Sketchware-Pro/blob/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/java/mod/khaled/logcat/LogReaderActivity.java) via `pro.sketchware.ACTION_NEW_DEBUG_LOG` intents. The attacker then socially engineers the victim to share the debug logs containing all captured sensitive data. Alternatively, a companion malicious app could listen for these broadcasts and automatically exfiltrate the data to a remote server, eliminating the need for manual social engineering.
+After installation, the app displays a fake "device unsupported" error to make victims think it failed. The malware continuously captures system-wide logs (containing possibly sensitive information) and broadcasts them to Sketchware Pro's [LogReader](https://github.com/Sketchware-Pro/Sketchware-Pro/blob/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/java/mod/khaled/logcat/LogReaderActivity.java) via `pro.sketchware.ACTION_NEW_DEBUG_LOG` intents. The attacker then socially engineers the victim to share the debug logs containing all captured sensitive data. Alternatively, a companion malicious app could listen for these broadcasts and automatically exfiltrate the data to a remote server, eliminating the need for manual social engineering.
 
 The sample uses Sketchware Pro's publicly available [SketchLogger](https://github.com/Sketchware-Pro/Sketchware-Pro/blob/68334a917e01bf040b51684c61137cf75af848dd/app/src/main/assets/debug/SketchLogger.java) template.
 
