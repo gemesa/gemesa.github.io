@@ -59,6 +59,20 @@ $ file ChromeUpdater.apk
 ChromeUpdater.apk: Android package (APK), with AndroidManifest.xml, with APK Signing Block
 ```
 
+It is v2 signed, so it could target even [Android 11 (API level 30) or higher](https://developer.android.com/about/versions/11/behavior-changes-11#minimum-signature-scheme):
+
+```
+$ apksigner verify -v ChromeUpdater.apk
+Verifies
+Verified using v1 scheme (JAR signing): true
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+```
+
 ### Static analysis (jadx)
 
 We can decompile the APK with 1 minor error only (that is related to a library function, so we can safely ignore it):
