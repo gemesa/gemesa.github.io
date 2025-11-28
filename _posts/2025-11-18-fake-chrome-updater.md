@@ -125,7 +125,9 @@ resources/res/layout/main.xml
 
 #### `AndroidManifest.xml`
 
-Before looking at the source code, it is a good idea to check `AndroidManifest.xml` briefly. After launch, a `SketchApplication` instance is created first, then a `MainActivity` instance then finally a `DebugActivity` instance. When an instance is created, the `onCreate()` method is called.
+Before looking at the source code, it is a good idea to check `AndroidManifest.xml` briefly. After launch, a `SketchApplication` instance and a `MainActivity` instance are created.
+
+> Note: When an instance is created, the `onCreate()` method is called.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
