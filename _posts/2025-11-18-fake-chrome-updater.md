@@ -10,7 +10,7 @@ published: true
 
 ## Introduction
 
-In this post we will analyze a randomly picked [Android sample](https://bazaar.abuse.ch/sample/59bb681961028642190f780266e2932a0f928b6ec44881165e1cecd0988c8029/) from 2025 that disguises itself as a Chrome updater using [jadx](https://github.com/skylot/jadx). A search for [existing write-ups](https://www.google.com/search?q=%2259bb681961028642190f780266e2932a0f928b6ec44881165e1cecd0988c8029%22) yields no results, so we are exploring fresh territory. We will also implement YARA rules to detect IOCs and Java code to decrypt the obfuscated strings.
+In this post we will analyze a randomly picked [Android sample](https://bazaar.abuse.ch/sample/59bb681961028642190f780266e2932a0f928b6ec44881165e1cecd0988c8029/) from 2025 that disguises itself as a Chrome updater using [jadx](https://github.com/skylot/jadx). We will also implement YARA rules to detect IOCs and Java code to decrypt the obfuscated strings.
 
 ## Executive summary
 
