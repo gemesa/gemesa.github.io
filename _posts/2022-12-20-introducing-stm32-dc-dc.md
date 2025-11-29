@@ -81,8 +81,8 @@ Uncomment the control function and set the chosen output voltage in mV (for exam
 
 The following measurements illustrate the different working modes:
 
-![buck]({{site.baseurl}}/assets/buck.png)
+![buck]({{site.baseurl}}/assets/stm32-dc-dc/buck.png)
 
-![mixed]({{site.baseurl}}/assets/mixed.png)
+![mixed]({{site.baseurl}}/assets/stm32-dc-dc/mixed.png)
 
-![boost]({{site.baseurl}}/assets//boost.png)
+![boost]({{site.baseurl}}/assets/stm32-dc-dc/boost.png)

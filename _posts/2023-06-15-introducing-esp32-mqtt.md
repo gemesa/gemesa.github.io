@@ -47,11 +47,11 @@ static void mqtt_app_start(void)
 - Copy the content of the device certificate to `client.crt`, the content of the device private key to `client.key` and the content of the root certificate to `amazonaws.com.crt`.
 - Add a custom rule which will republish from topic `esp32/sensors/temp` to `esp32/warn` if out temperature value is too high:
 
-![AWS rule]({{site.baseurl}}/assets/aws-rule.png)
+![AWS rule]({{site.baseurl}}/assets/esp32-mqtt/aws-rule.png)
 
 - Subscribe to topic `esp32/sensors/temp` and to topic `esp32/warn`:
 
-![AWS MQTT test]({{site.baseurl}}/assets/aws-mqtt-test.png)
+![AWS MQTT test]({{site.baseurl}}/assets/esp32-mqtt/aws-mqtt-test.png)
 
 ### Build and flash
 
@@ -92,9 +92,9 @@ DATA={
 }
 ```
 
-![AWS MQTT temp]({{site.baseurl}}/assets/aws-mqtt-temp.png)
+![AWS MQTT temp]({{site.baseurl}}/assets/esp32-mqtt/aws-mqtt-temp.png)
 
-![AWS MQTT warn]({{site.baseurl}}/assets/aws-mqtt-warn.png)
+![AWS MQTT warn]({{site.baseurl}}/assets/esp32-mqtt/aws-mqtt-warn.png)
 
 # ESP-MQTT SSL example with PSK verification
 

@@ -16,7 +16,7 @@ published: true
 
 After following the guide above your HW setup should look like this:
 
-![ASUS RT-AX53U setup]({{site.baseurl}}/assets/asus-rt-ax53u-setup.png)
+![ASUS RT-AX53U setup]({{site.baseurl}}/assets/openwrt-asus/asus-rt-ax53u-setup.png)
 
 where:
 - LAN1 port of your router is connected to your PC

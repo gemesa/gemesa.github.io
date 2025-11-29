@@ -169,7 +169,7 @@ payload size: 367
 
 Our messagebox will also pop up:
 
-![messagebox]({{site.baseurl}}/assets/msf-msg.png)
+![messagebox]({{site.baseurl}}/assets/shellcode/msf-msg.png)
 
 ## Rust
 
@@ -338,7 +338,7 @@ payload size: 367
 
 Our messagebox will also pop up:
 
-![messagebox]({{site.baseurl}}/assets/msf-msg.png)
+![messagebox]({{site.baseurl}}/assets/shellcode/msf-msg.png)
 
 References:
 - [https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/](https://ivanitlearning.wordpress.com/2018/10/14/shellcoding-with-msfvenom/)
