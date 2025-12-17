@@ -12,7 +12,7 @@ published: true
 
 The Mirai botnet emerged in 2016 by turning vulnerable IoT devices into a DDoS army. Mirai mainly targeted IoT devices with telnet enabled and weak credentials. At its peak, the botnet contained around 600k bots which were capable of delivering attacks with 600 Gbps load. In the same year the Mirai source code was leaked and is now available on [GitHub](https://github.com/jgamblin/Mirai-Source-Code) for security research. A high-quality research paper with further information about the first variant is available [here](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-antonakakis.pdf). Since then a lot of modified variants have been observed, with the latest ones typically spreading by exploiting different CVEs. An example can be found [here](https://www.akamai.com/blog/security-research/2025-january-new-aquabot-mirai-variant-exploiting-mitel-phones).
 
-In this post we will analyze the [latest](https://bazaar.abuse.ch/sample/ad772931b53729665b609f0aaa712e7bc3245495c85162857388cf839efbc5c2/) Mirai ARM sample from [MalwareBazaar](https://bazaar.abuse.ch/browse/tag/arm/) using Ghidra (static analysis) and Wireshark (dynamic analysis). We will also implement YARA and Suricata rules to detect IOCs and Ghidra scripts to extract the encrypted configuration.
+In this post we will analyze the [latest](https://bazaar.abuse.ch/sample/ad772931b53729665b609f0aaa712e7bc3245495c85162857388cf839efbc5c2/) Mirai ARM sample from [MalwareBazaar](https://bazaar.abuse.ch/browse/tag/arm/) using Ghidra (static analysis) and Wireshark (dynamic analysis). We will also implement YARA and Suricata rules to detect the malware and Ghidra scripts to extract the encrypted configuration.
 
 ## Executive summary
 
