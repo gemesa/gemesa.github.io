@@ -1914,7 +1914,7 @@ rule qilin {
 
 ## Sigma
 
-Note: the rule is available [here](https://github.com/gemesa/threat-detection-rules) as well.
+Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
 ```
 title: Qilin ESXi ransomware - VM kill commands
