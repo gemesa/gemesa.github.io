@@ -12,7 +12,7 @@ published: true
 
 The Mirai botnet emerged in 2016 by turning vulnerable IoT devices into a DDoS army. Mirai mainly targeted IoT devices with telnet enabled and weak credentials. At its peak, the botnet contained around 600k bots which were capable of delivering attacks with 600 Gbps load. In the same year the Mirai source code was leaked and is now available on [GitHub](https://github.com/jgamblin/Mirai-Source-Code) for security research. A high-quality research paper with further information about the first variant is available [here](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-antonakakis.pdf). Since then a lot of modified variants have been observed, with the latest ones typically spreading by exploiting different CVEs. An example can be found [here](https://www.akamai.com/blog/security-research/2025-january-new-aquabot-mirai-variant-exploiting-mitel-phones).
 
-In this post we will analyze the [latest](https://bazaar.abuse.ch/sample/ad772931b53729665b609f0aaa712e7bc3245495c85162857388cf839efbc5c2/) Mirai ARM sample from [MalwareBazaar](https://bazaar.abuse.ch/browse/tag/arm/) using Ghidra (static analysis) and Wireshark (dynamic analysis). We will also implement YARA and Suricata rules to detect the malware and Ghidra scripts to extract the encrypted configuration.
+In this post we will analyze the [latest](https://bazaar.abuse.ch/sample/ad772931b53729665b609f0aaa712e7bc3245495c85162857388cf839efbc5c2/) Mirai ARM sample from [MalwareBazaar](https://bazaar.abuse.ch/browse/tag/arm/) using Ghidra (static analysis) and Wireshark (dynamic analysis). We will also implement Sigma, YARA and Suricata rules to detect the malware and Ghidra scripts to extract the encrypted configuration.
 
 ## Executive summary
 
@@ -1351,6 +1351,198 @@ alert tcp any any -> 154.7.253.207 any (msg:"Mirai SORA C2"; sid:1000001; rev:1;
 $ sudo suricata -c /etc/suricata/suricata.yaml -s mirai.rules -i 
 $ sudo tail -f /var/log/suricata/fast.log
 04/04/2025-16:15:20.435158  [**] [1:1000003:1] Mirai SORA C2 [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.128:49250 -> 154.7.253.207:1312
+```
+
+#### Sigma
+
+Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
+
+```
+title: Mirai SORA - C2 communication (154.7.253.207)
+id: 02d25b2c-01d6-4dd7-a1d8-2e3224d9e2a2
+status: experimental
+description: |
+  Detects network connection to known Mirai SORA C2 server.
+  Based on Suricata rule: alert tcp any any -> 154.7.253.207 any
+  Based on YARA rule detecting hardcoded C2: "154.7.253.207"
+author: Andras Gemes
+date: 2025/04/04
+references:
+  - https://shadowshell.io/mirai-sora-botnet
+  - https://github.com/gemesa/threat-detection-rules/tree/main/mirai-sora-arm
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: network_connection
+  product: linux
+detection:
+  selection:
+    DestinationIp: "154.7.253.207"
+  condition: selection
+falsepositives:
+  - Unlikely - known malicious infrastructure
+level: critical
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.command-and-control
+  # Application Layer Protocol - https://attack.mitre.org/techniques/T1071/
+  - attack.t1071
+
+---
+title: Mirai SORA - C2 port 1312
+id: 89c54fa6-0794-4e57-9345-285875805e58
+status: experimental
+description: |
+  Detects outbound connection on port 1312, used by Mirai SORA variant.
+  Based on YARA rule detecting port 0x520 (1312 decimal).
+author: Andras Gemes
+date: 2025/04/04
+references:
+  - https://shadowshell.io/mirai-sora-botnet
+  - https://github.com/gemesa/threat-detection-rules/tree/main/mirai-sora-arm
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: network_connection
+  product: linux
+detection:
+  selection:
+    DestinationPort: 1312
+  condition: selection
+falsepositives:
+  - Rare legitimate use of this port
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.command-and-control
+  # Non-Standard Port - https://attack.mitre.org/techniques/T1571/
+  - attack.t1571
+
+---
+title: Mirai SORA - watchdog manipulation
+id: 7b0b4447-3a21-467e-b530-6f93c39a3d2c
+status: experimental
+description: |
+  Detects access to watchdog device files, used by Mirai to prevent device reboot.
+  Based on YARA rules detecting: "/dev/watchdog", "/dev/misc/watchdog"
+author: Andras Gemes
+date: 2025/04/04
+references:
+  - https://shadowshell.io/mirai-sora-botnet
+  - https://github.com/gemesa/threat-detection-rules/tree/main/mirai-sora-arm
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: linux
+  category: file_event
+detection:
+  selection:
+    TargetFilename:
+      - "/dev/watchdog"
+      - "/dev/misc/watchdog"
+  condition: selection
+falsepositives:
+  - Legitimate watchdog daemon usage
+level: medium
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.persistence
+  # Boot or Logon Autostart Execution - https://attack.mitre.org/techniques/T1547/
+  - attack.t1547
+
+---
+title: Mirai SORA - Busybox execution with SORA identifier
+id: ede181a6-6b49-48b3-bdb4-2cc6560409ac
+status: experimental
+description: |
+  Detects busybox execution patterns associated with Mirai SORA.
+  Note: The actual string "SORA" is XOR encrypted in the binary, but may appear in execution.
+author: Andras Gemes
+date: 2025/04/04
+references:
+  - https://shadowshell.io/mirai-sora-botnet
+  - https://github.com/gemesa/threat-detection-rules/tree/main/mirai-sora-arm
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains|all:
+      - "busybox"
+      - "SORA"
+  condition: selection
+falsepositives:
+  - Unlikely
+level: critical
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.execution
+  # Command and Scripting Interpreter: Unix Shell - https://attack.mitre.org/techniques/T1059/004/
+  - attack.t1059.004
+
+---
+title: Mirai SORA - process self-deletion via /proc/self/exe
+id: 4123e9a5-c8b8-49e9-83a6-dd278be204ef
+status: experimental
+description: |
+  Detects access to /proc/*/exe, potentially for self-deletion or re-execution.
+  Based on YARA rules detecting: "/proc/", "/exe"
+author: Andras Gemes
+date: 2025/04/04
+references:
+  - https://shadowshell.io/mirai-sora-botnet
+  - https://github.com/gemesa/threat-detection-rules/tree/main/mirai-sora-arm
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - "/proc/self/exe"
+      - "/proc/*/exe"
+  condition: selection
+falsepositives:
+  - Debugging tools, process monitoring
+level: medium
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.defense-evasion
+  # Indicator Removal: File Deletion  - https://attack.mitre.org/techniques/T1070/004/
+  - attack.t1070.004
+
+---
+title: Mirai SORA - competitor botnet detection scan (.anime)
+id: c077a2a4-f33a-4841-abe4-e795311bc54c
+status: experimental
+description: |
+  Detects file access to .anime, a marker used by the Anime botnet.
+  Mirai variants scan for this file to identify and kill competitor infections.
+author: Andras Gemes
+date: 2025/04/04
+references:
+  - https://shadowshell.io/mirai-sora-botnet
+  - https://github.com/gemesa/threat-detection-rules/tree/main/mirai-sora-arm
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: linux
+  category: file_access
+detection:
+  selection:
+    TargetFilename|endswith: ".anime"
+  condition: selection
+falsepositives:
+  - Unlikely
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.discovery
+  # File and Directory Discovery - https://attack.mitre.org/techniques/T1083/
+  - attack.t1083
 ```
 
 ## Appendix
