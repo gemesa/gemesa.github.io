@@ -1911,3 +1911,210 @@ rule qilin {
     defined(elf.type) and 15 of them
 }
 ```
+
+## Sigma
+
+Note: the rule is available [here](https://github.com/gemesa/threat-detection-rules) as well.
+
+```
+title: Qilin ESXi ransomware - VM kill commands
+id: a11306e8-d1aa-43f2-bb4a-f9998e15d2bf
+status: experimental
+description: |
+  Detects Qilin ransomware behavior on ESXi hosts - forceful VM termination.
+  Based on YARA rule detecting: "esxcli vm process kill -t force -w %llu"
+author: Andras Gemes
+date: 2025/03/12
+references:
+  - https://shadowshell.io/qilin-ransomware
+  - https://github.com/gemesa/threat-detection-rules/tree/main/qilin
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: esxi
+  category: process_creation
+detection:
+  selection_esxcli_kill:
+    CommandLine|contains|all:
+      - "esxcli"
+      - "vm"
+      - "process"
+      - "kill"
+  selection_force:
+    CommandLine|contains: "force"
+  condition: selection_esxcli_kill and selection_force
+falsepositives:
+  - Legitimate administrator VM management (rare to use force kill)
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.impact
+  # Service Stop - https://attack.mitre.org/techniques/T1489/
+  - attack.t1489
+  # Data Encrypted for Impact - https://attack.mitre.org/techniques/T1486/
+  - attack.t1486
+
+---
+title: Qilin ESXi ransomware - snapshot deletion
+id: 20fe815f-8420-4bb8-97b9-c5b1942c08eb
+status: experimental
+description: |
+  Detects Qilin ransomware deleting VM snapshots before encryption.
+  Based on YARA rule detecting: "vim-cmd vmsvc/snapshot.removeall %llu"
+author: Andras Gemes
+date: 2025/03/12
+references:
+  - https://shadowshell.io/qilin-ransomware
+  - https://github.com/gemesa/threat-detection-rules/tree/main/qilin
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: esxi
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains|all:
+      - "vim-cmd"
+      - "vmsvc"
+      - "snapshot.removeall"
+  condition: selection
+falsepositives:
+  - Legitimate snapshot cleanup by administrators
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.impact
+  # Inhibit System Recovery - https://attack.mitre.org/techniques/T1490/
+  - attack.t1490
+
+---
+title: Qilin ESXi ransomware - buffer cache manipulation
+id: 3a2918ee-910c-4e40-8192-5ca9eb35ab98
+status: experimental
+description: |
+  Detects Qilin ransomware manipulating ESXi buffer cache settings to speed up encryption.
+  Based on YARA rules detecting esxcfg-advcfg commands.
+author: Andras Gemes
+date: 2025/03/12
+references:
+  - https://shadowshell.io/qilin-ransomware
+  - https://github.com/gemesa/threat-detection-rules/tree/main/qilin
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: esxi
+  category: process_creation
+detection:
+  selection_buffercache:
+    CommandLine|contains|all:
+      - "esxcfg-advcfg"
+      - "BufferCache"
+  selection_params:
+    CommandLine|contains:
+      - "MaxCapacity"
+      - "FlushInterval"
+  condition: selection_buffercache and selection_params
+falsepositives:
+  - Legitimate ESXi performance tuning (rare)
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.defense-evasion
+  # Impair Defenses - https://attack.mitre.org/techniques/T1562/
+  - attack.t1562
+
+---
+title: Qilin ESXi ransomware - eager zero disk wiping
+id: e180d137-5816-46e7-bdd7-44e3261444e4
+status: experimental
+description: |
+  Detects Qilin ransomware using vmkfstools with eagerzeroedthick to wipe free space.
+  This prevents data recovery after encryption.
+author: Andras Gemes
+date: 2025/03/12
+references:
+  - https://shadowshell.io/qilin-ransomware
+  - https://github.com/gemesa/threat-detection-rules/tree/main/qilin
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: esxi
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains|all:
+      - "vmkfstools"
+      - "eagerzeroedthick"
+  condition: selection
+falsepositives:
+  - VMware admin creating eager zeroed thick disks
+  - VMware KB 318028 workaround for VMFS heap memory exhaustion
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.impact
+  # Data Destruction - https://attack.mitre.org/techniques/T1485/
+  - attack.t1485
+
+---
+title: Qilin ESXi ransomware - ransom note creation
+id: c42cfe5f-fb9f-4b46-b0fa-93f44c9bbbc6
+status: experimental
+description: |
+  Detects creation of Qilin ransom note files.
+  Based on YARA rule detecting: "%s_RECOVER.txt"
+author: Andras Gemes
+date: 2025/03/12
+references:
+  - https://shadowshell.io/qilin-ransomware
+  - https://github.com/gemesa/threat-detection-rules/tree/main/qilin
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: esxi
+  category: file_event
+detection:
+  selection:
+    TargetFilename|endswith: "_RECOVER.txt"
+  condition: selection
+falsepositives:
+  - Unlikely
+level: critical
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.impact
+  # Data Encrypted for Impact - https://attack.mitre.org/techniques/T1486/
+  - attack.t1486
+
+---
+title: Qilin ESXi ransomware - MOTD modification
+id: 9d62bba1-a42d-4b97-850d-9c7ccf986691
+status: experimental
+description: |
+  Detects modification of /etc/motd files, used by Qilin to display ransom message on login.
+author: Andras Gemes
+date: 2025/03/12
+references:
+  - https://shadowshell.io/qilin-ransomware
+  - https://github.com/gemesa/threat-detection-rules/tree/main/qilin
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  product: esxi
+  category: file_event
+detection:
+  selection:
+    TargetFilename:
+      - "/etc/motd"
+      - "/etc/motd.template"
+      - "/var/run/motd"
+  condition: selection
+falsepositives:
+  - System updates, legitimate MOTD changes
+level: medium
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.impact
+  # Defacement - https://attack.mitre.org/techniques/T1491/
+  - attack.t1491
+```
