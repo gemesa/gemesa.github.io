@@ -12,7 +12,7 @@ published: true
 
 Hancitor (also known as Chanitor) is a well-known malware loader, active since 2013. It is designed to install other malware on infected targets and is typically distributed through documents containing malicious macros and phishing campaigns. Once a victim opens the document and enables macros, Hancitor infects the target system and awaits additional C2 (Command and Control) instructions, such as installing ransomware or information stealers. More details can be found [here](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Trojan:Win32/Hancitor&threatId=-2147188234) and [here](https://malpedia.caad.fkie.fraunhofer.de/details/win.hancitor).
 
-In this post we will reverse a Hancitor `.dll` variant available on [Malware Bazaar](https://bazaar.abuse.ch/sample/efbdd00df327459c9db2ffc79b2408f7f3c60e8ba5f8c5ffd0debaff986863a8/) using Ghidra (static analysis) and x32dbg/x64dbg (dynamic analysis). After the analysis, we will implement some YARA and Suricata rules to be able to detect infected machines.
+In this post we will reverse a Hancitor `.dll` variant available on [Malware Bazaar](https://bazaar.abuse.ch/sample/efbdd00df327459c9db2ffc79b2408f7f3c60e8ba5f8c5ffd0debaff986863a8/) using Ghidra (static analysis) and x32dbg/x64dbg (dynamic analysis). After the analysis, we will implement some Sigma, YARA and Suricata rules to be able to detect infected machines.
 
 ## Executive summary
 
@@ -3032,6 +3032,176 @@ $ zeek-cut -d ts uid host uri < http.log
 2025-02-24T15:31:54-0500	CmExvp20ugiy1cdD4a	intakinger.com	/8/forum.php
 $ tshark -r dump.pcapng -Y "http.host contains declassivan.ru" -T fields -e http.file_data
 GUID=11575264094754111496&BUILD=2508_bqplf&INFO=DESKTOP-O8AU853 @ DESKTOP-O8AU853\gemesa&EXT=&IP=<html>\n  <head>\n    <title>INetS&TYPE=1&WIN=10.0(x64)
+```
+
+### Sigma
+
+Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
+
+```
+title: Hancitor C2 beacon - network connection
+id: 9d334d0d-7934-40d1-97ea-23f7c2c4276a
+status: experimental
+description: |
+  Detects network connections matching Hancitor C2 beacon pattern.
+  Based on Suricata rule detecting POST requests with Hancitor beacon format.
+author: Andras Gemes
+date: 2025/02/18
+references:
+  - https://shadowshell.io/hancitor-loader
+  - https://github.com/gemesa/threat-detection-rules/tree/main/hancitor
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    Initiated: true
+    DestinationPort: 80
+  filter_known_good:
+    DestinationIp|startswith:
+      # Tweak this as necessary.
+      - "10."
+      - "172.16."
+      - "192.168."
+  condition: selection and not filter_known_good
+falsepositives:
+  - Legitimate HTTP traffic (requires correlation with other indicators)
+level: low
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.command-and-control
+  # Application Layer Protocol: Web Protocols  - https://attack.mitre.org/techniques/T1071/001/
+  - attack.t1071.001
+
+---
+title: Hancitor - Rundll32 DLL execution pattern
+id: 16434811-0279-42fe-b80a-4e3768eab8f9
+status: experimental
+description: |
+  Detects Hancitor payload execution via Rundll32.
+  Based on YARA rule detecting: "Rundll32.exe %s, start"
+author: Andras Gemes
+date: 2025/02/18
+references:
+  - https://shadowshell.io/hancitor-loader
+  - https://github.com/gemesa/threat-detection-rules/tree/main/hancitor
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_rundll32:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains: ", start"
+  condition: selection_rundll32
+falsepositives:
+  - Some legitimate software may use similar patterns
+level: medium
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.execution
+  - attack.defense-evasion
+  # System Binary Proxy Execution: Rundll32  - https://attack.mitre.org/techniques/T1218/011/
+  - attack.t1218.011
+
+---
+title: Hancitor - Suspicious User-Agent (proxy logs)
+id: 3b0e0353-b903-4fa7-818a-b8647a6035ef
+status: experimental
+description: |
+  Detects Hancitor User-Agent string in proxy logs.
+  Based on YARA rule: "Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko"
+  Note: This is a legitimate IE11 UA, but combined with other indicators is suspicious.
+author: Andras Gemes
+date: 2025/02/18
+references:
+  - https://shadowshell.io/hancitor-loader
+  - https://github.com/gemesa/threat-detection-rules/tree/main/hancitor
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-useragent: "Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko"
+    cs-method: "POST"
+  condition: selection
+falsepositives:
+  - Legitimate Internet Explorer 11 traffic
+level: low
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.command-and-control
+  # Application Layer Protocol: Web Protocols - https://attack.mitre.org/techniques/T1071/001/
+  - attack.t1071.001
+
+---
+title: Hancitor - IP lookup via ipify.org
+id: 8e9b5bd0-25ce-40b3-bf51-3ba5afd2ec51
+status: experimental
+description: |
+  Detects Hancitor checking external IP via api.ipify.org.
+  Based on YARA rule detecting: "http://api.ipify.org"
+author: Andras Gemes
+date: 2025/02/18
+references:
+  - https://shadowshell.io/hancitor-loader
+  - https://github.com/gemesa/threat-detection-rules/tree/main/hancitor
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: dns
+  product: windows
+detection:
+  selection:
+    QueryName: "api.ipify.org"
+  condition: selection
+falsepositives:
+  - Legitimate applications checking external IP
+level: low
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.discovery
+  # System Network Configuration Discovery - https://attack.mitre.org/techniques/T1016/
+  - attack.t1016
+
+---
+title: Hancitor - Beacon POST content pattern (proxy)
+id: e30d25d8-1a81-4ade-8d85-e72c44d612f1
+status: experimental
+description: |
+  Detects Hancitor beacon POST data pattern in proxy logs.
+  Based on YARA rule detecting beacon format: "GUID=%I64u&BUILD=%s&INFO=%s&EXT=%s&IP=%s&TYPE=1"
+author: Andras Gemes
+date: 2025/02/18
+references:
+  - https://shadowshell.io/hancitor-loader
+  - https://github.com/gemesa/threat-detection-rules/tree/main/hancitor
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-taxonomy.md
+# https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-appendix-modifiers.md
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-method: "POST"
+    # Look for the beacon pattern (may need adjustment based on proxy log format).
+    cs-body|contains:
+      - "GUID="
+      - "BUILD="
+      - "INFO="
+      - "TYPE=1"
+  condition: selection
+falsepositives:
+  - Unlikely with this specific pattern
+level: high
+tags:
+  # tactic - https://attack.mitre.org/tactics/enterprise/
+  - attack.command-and-control
+  # Application Layer Protocol: Web Protocols - https://attack.mitre.org/techniques/T1071/001/
+  - attack.t1071.001
 ```
 
 ## Appendix
