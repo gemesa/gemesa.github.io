@@ -56,6 +56,23 @@ Visit `http://localhost:8000/` to access the blog.
 
 *Note: In case you have set a `baseurl` different than `/` in `_config.yml`, go to `http://0.0.0.0:8000/BASEURL/` instead.*
 
+### Local build
+
+#### macOS
+
+```bash
+brew install chruby ruby-install
+ruby-install ruby 3.4.8
+echo 'source /opt/homebrew/opt/chruby/share/chruby/chruby.sh' >> ~/.zshrc
+echo 'source /opt/homebrew/opt/chruby/share/chruby/auto.sh' >> ~/.zshrc
+echo 'chruby ruby-3.4.8' >> ~/.zshrc
+. ~/.zshrc
+ruby -v
+gem install bundler
+bundle install
+bundle exec jekyll serve --watch --port 8000
+```
+
 ## Customizing
 
 ### Configuration variables
