@@ -275,6 +275,10 @@ a:hover {
   color: $hoverColour;
 }
 
+a:hover code.highlighter-rouge {
+  color: $hoverColour;
+}
+
 a:active, a:focus {
   outline: 0;
   border: none;
