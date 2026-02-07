@@ -4,7 +4,7 @@
    with custom theme modifications
 */
 
-@import "default_colors";
+@use "default_colors" as *;
 
 .highlight {
   $comment: #999999 !default;

@@ -3,8 +3,8 @@
    with custom theme modifications
 */
 
-@import "rouge-base16-dark";
-@import "default_colors";
+@use "rouge-base16-dark" as *;
+@use "default_colors" as *;
 
 $body-background: $backgroundColour !default;
 $body-foreground: $bodyColour !default;

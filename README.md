@@ -123,7 +123,7 @@ Post layout: Edit `_layouts/post.html`
 
 Site wide CSS: Edit `_sass/base.scss`
 
-Custom CSS: Make `_sass/custom.scss` and use it. Then add `@import "custom";` to `css/main.scss`
+Custom CSS: Make `_sass/custom.scss` and use it. Then add `@use "custom";` to `css/main.scss`
 
 **404 page**
 
