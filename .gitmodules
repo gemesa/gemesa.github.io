@@ -1,0 +1,6 @@
+[submodule "external/threat-detection-rules"]
+	path = external/threat-detection-rules
+	url = https://github.com/gemesa/threat-detection-rules.git
+[submodule "external/reversing-scripts"]
+	path = external/reversing-scripts
+	url = https://github.com/gemesa/reversing-scripts.git
