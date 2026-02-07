@@ -1916,7 +1916,7 @@ rule qilin {
 
 Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
-```
+```yml
 title: Qilin ESXi ransomware - VM kill commands
 id: a11306e8-d1aa-43f2-bb4a-f9998e15d2bf
 status: experimental

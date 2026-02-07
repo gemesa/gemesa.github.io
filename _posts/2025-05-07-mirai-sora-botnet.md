@@ -1357,7 +1357,7 @@ $ sudo tail -f /var/log/suricata/fast.log
 
 Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
-```
+```yml
 title: Mirai SORA - C2 communication (154.7.253.207)
 id: 02d25b2c-01d6-4dd7-a1d8-2e3224d9e2a2
 status: experimental

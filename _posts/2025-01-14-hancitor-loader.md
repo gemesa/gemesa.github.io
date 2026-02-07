@@ -3038,7 +3038,7 @@ GUID=11575264094754111496&BUILD=2508_bqplf&INFO=DESKTOP-O8AU853 @ DESKTOP-O8AU85
 
 Note: the rules are available [here](https://github.com/gemesa/threat-detection-rules) as well.
 
-```
+```yml
 title: Hancitor C2 beacon - network connection
 id: 9d334d0d-7934-40d1-97ea-23f7c2c4276a
 status: experimental
