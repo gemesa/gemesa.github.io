@@ -365,156 +365,28 @@ code {
           : 'default'
     });
   </script>
-<style>
-html {
-    padding: 0;
-    margin: 0;
-}
-
-body {
-    display: block;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 0;
-    font-family: Roboto;
-    font-size: 14px;
-}
-
-.name {
-    font-size: 150%;
-    line-height: 150%;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-}
-
-h1 {
-    border: none;
-    text-align: center;
-    font-weight: bold;
-    padding: 0;
-    margin: 1rem 0;
-}
-
-h2 {
-    font-size: 1.2em;
-    font-weight: bold;
-    border-bottom: 2px solid black !important;
-    color: #0D47A1;
-    margin: 10px 0 5px 0;
-    padding: 0 0 2px 0;
-}
-
-h3 {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 5px 0 0 0;
-}
-
-h4 {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 0 0 0.25em 0;
-}
-
-p, ul {
-    font-size: 100%;
-    margin: 0;
-}
-
-ul, ol {
-    padding: 0 0 0 1.5rem;
-    margin: 0;
-}
-
-li {
-    line-height: 150%;
-    /* change this for tighter spacing */
-    /* default 150% */
-}
-
-/* assume images are icons */
-/* icons for skills/tools */
-.info img {
-    width: 12px;
-}
-
-/* assume images are icons */
-/* icons for contact info */
-.info a img {
-    width: 12px;
-}
-
-a {
-    color: #0D47A1;
-    text-decoration: underline;
-}
-
-code {
-    color: black;
-}
-
-time {
-    float: right;
-    font-size: inherit;
-    font-weight: bold;
-}
-
-location {
-    font-weight: normal;
-    font-style: italic;
-}
-
-.info {
-    display: block;
-    text-align: center;
-}
-
-@media print {
-    h2 {
-        break-after: avoid;
-        /* Avoid breaking right after h2 */
-    }
-
-    h3 {
-        break-after: avoid;
-        /* Avoid breaking right after h3 */
-    }
-
-    h3~p,
-    h3~ul,
-    h3~ol,
-    h3~blockquote {
-        /* Add other tags as necessary */
-        break-before: avoid;
-        /* Avoid breaking right before these elements if they follow an h3 */
-    }
-
-    h3~h3 {
-        break-before: auto;
-        /* Allow breaks before a new h3, overriding previous rules */
-    }
-}
-</style>
+<link rel="stylesheet" type="text/css" href="resume.css">
 <p><span class="name">András Gémes</span></p>
 <span class="info">
 <p><a target="_blank" href="https://shadowshell.io">shadowshell.io</a> | <a target="_blank" href="https://github.com/gemesa">github.com/gemesa</a> | <a target="_blank" href="https://www.linkedin.com/in/gemesa/">linkedin.com/gemesa</a> | <a href="mailto:gemesa@protonmail.com">gemesa@protonmail.com</a></p>
 </span>
 <h2 id="summary">Summary</h2>
-<p>Security researcher with 8 years of experience. <a target="_blank" href="https://shadowshell.io">Hands-on experience</a> in malware analysis, reverse engineering and vulnerability research. Certified in <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Security+%20ce%20certificate.pdf">Sec+</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Advanced%20Security%20Practitioner%20(CASP%2B)%20ce%20certificate.pdf">CASP+</a>/<a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20SecurityX%20ce%20certificate.pdf">SecX</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/ECC-CEH-Certificate.pdf">CEH</a> and <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/">others</a>. LLVM compiler engineering (code obfuscation) and embedded systems background. Open to roles in malware analysis, reverse engineering and vulnerability research.</p>
+<p>Security researcher with 8 years of experience. <a target="_blank" href="https://shadowshell.io">Hands-on experience</a> in mobile application security, reverse engineering, malware analysis and vulnerability research. Certified in <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Security+%20ce%20certificate.pdf">Sec+</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Advanced%20Security%20Practitioner%20(CASP%2B)%20ce%20certificate.pdf">CASP+</a>/<a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20SecurityX%20ce%20certificate.pdf">SecX</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/ECC-CEH-Certificate.pdf">CEH</a> and <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/">others</a>. LLVM compiler engineering (code obfuscation) and embedded systems background. Open to roles in mobile security.</p>
 <h2 id="work-experience">Work experience</h2>
-<h3 id="security-researcher---hightec-edv-systeme-gmbh---budapest-hungary---feb-2023--present">Security Researcher <location> @ HighTec EDV-Systeme GmbH - Budapest, Hungary </location> <time> Feb 2023 – Present </time></h3>
+<h3 id="application-security-evaluator---sgs-brightsight---delft-netherlands---june-2026--present">Application Security Evaluator <location> @ SGS Brightsight - Delft, Netherlands </location> <time> June 2026 – Present </time></h3>
 <ul>
-<li>Analyzing Windows, Linux and Android <a target="_blank" href="https://shadowshell.io">malware</a>, writing <a target="_blank" href="https://github.com/gemesa/threat-detection-rules">detection rules</a> and config extractors (<a target="_blank" href="https://github.com/gemesa/ghidra-scripts/">Ghidra</a>, <a target="_blank" href="https://github.com/gemesa/reversing-scripts">Python</a>)</li>
-<li>Implementing custom <a target="_blank" href="https://shadowshell.io/phantom-pass/">LLVM-based code obfuscation pass plugins</a> based on malware research</li>
-<li>Evaluating security impact of reported LLVM vulnerabilities as a <a target="_blank" href="https://github.com/llvm/llvm-project/pull/124142">member of the LLVM security group</a></li>
-<li>Hardening the Rust toolchain binaries against reverse engineering</li>
+<li>Evaluating mobile payment applications against the PCI MPoC standard</li>
+</ul>
+<h3 id="security-researcher---hightec-edv-systeme-gmbh---budapest-hungary---feb-2023--june-2026">Security Researcher <location> @ HighTec EDV-Systeme GmbH - Budapest, Hungary </location> <time> Feb 2023 – June 2026 </time></h3>
+<ul>
+<li>Analyzed Windows, Linux and Android <a target="_blank" href="https://shadowshell.io">malware</a>, writing <a target="_blank" href="https://github.com/gemesa/threat-detection-rules">detection rules</a> and config extractors (<a target="_blank" href="https://github.com/gemesa/ghidra-scripts/">Ghidra</a>, <a target="_blank" href="https://github.com/gemesa/reversing-scripts">Python</a>)</li>
+<li>Implemented custom <a target="_blank" href="https://shadowshell.io/phantom-pass/">LLVM-based code obfuscation pass plugins</a> based on malware research</li>
+<li>Evaluated the security impact of reported LLVM vulnerabilities as a <a target="_blank" href="https://github.com/llvm/llvm-project/pull/124142">member of the LLVM security group</a></li>
 </ul>
 <h3 id="application-security-engineer---knorr-bremse---budapest-hungary---may-2018--jan-2023">Application Security Engineer <location> @ Knorr-Bremse - Budapest, Hungary </location> <time> May 2018 – Jan 2023 </time></h3>
 <ul>
 <li>Implemented and evaluated static application security testing across embedded C codebases</li>
 <li>Resolved embedded systems vulnerabilities discovered through code review and AFL++ fuzzing</li>
-<li>Developed embedded C software (memory, RTOS and communication modules)</li>
 <li>Built iOS and Android apps for real-time vehicle data visualization</li>
 </ul>
 <h2 id="technical-skills">Technical skills</h2>
