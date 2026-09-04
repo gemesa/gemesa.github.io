@@ -371,22 +371,24 @@ code {
 <p><a target="_blank" href="https://shadowshell.io">shadowshell.io</a> | <a target="_blank" href="https://github.com/gemesa">github.com/gemesa</a> | <a target="_blank" href="https://www.linkedin.com/in/gemesa/">linkedin.com/gemesa</a> | <a href="mailto:gemesa@protonmail.com">gemesa@protonmail.com</a></p>
 </span>
 <h2 id="summary">Summary</h2>
-<p>Security researcher with 8 years of experience. <a target="_blank" href="https://shadowshell.io">Hands-on experience</a> in mobile application security, reverse engineering, malware analysis and vulnerability research. Certified in <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Security+%20ce%20certificate.pdf">Sec+</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Advanced%20Security%20Practitioner%20(CASP%2B)%20ce%20certificate.pdf">CASP+</a>/<a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20SecurityX%20ce%20certificate.pdf">SecX</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/ECC-CEH-Certificate.pdf">CEH</a> and <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/">others</a>. LLVM compiler engineering (code obfuscation) and embedded systems background. Open to roles in mobile security.</p>
+<p>Security researcher with 8 years of experience. <a target="_blank" href="https://shadowshell.io">Hands-on experience</a> in mobile application security, reverse engineering, malware analysis and vulnerability research. Certified in <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Security+%20ce%20certificate.pdf">Sec+</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20Advanced%20Security%20Practitioner%20(CASP%2B)%20ce%20certificate.pdf">CASP+</a>/<a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/CompTIA%20SecurityX%20ce%20certificate.pdf">SecX</a>, <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/ECC-CEH-Certificate.pdf">CEH</a> and <a target="_blank" href="https://github.com/gemesa/gemesa/blob/main/rsc/">others</a>. LLVM compiler engineering (code obfuscation) and embedded systems background. Open to roles in security research.</p>
 <h2 id="work-experience">Work experience</h2>
-<h3 id="application-security-evaluator---sgs-brightsight---delft-netherlands---june-2026--present">Application Security Evaluator <location> @ SGS Brightsight - Delft, Netherlands </location> <time> June 2026 – Present </time></h3>
+<h3 id="application-security-researcher---sgs-brightsight---delft-netherlands---june-2026--present">Application Security Researcher <location> @ SGS Brightsight - Delft, Netherlands </location> <time> June 2026 – Present </time></h3>
 <ul>
+<li>Analyzing mobile payment applications for vulnerabilities (cryptography, runtime protection, data protection, etc.)</li>
 <li>Evaluating mobile payment applications against the PCI MPoC standard</li>
+<li>Reverse engineering app binaries (Ghidra, Frida) to identify logic flaws and develop PoC exploits</li>
 </ul>
 <h3 id="security-researcher---hightec-edv-systeme-gmbh---budapest-hungary---feb-2023--june-2026">Security Researcher <location> @ HighTec EDV-Systeme GmbH - Budapest, Hungary </location> <time> Feb 2023 – June 2026 </time></h3>
 <ul>
-<li>Analyzed Windows, Linux and Android <a target="_blank" href="https://shadowshell.io">malware</a>, writing <a target="_blank" href="https://github.com/gemesa/threat-detection-rules">detection rules</a> and config extractors (<a target="_blank" href="https://github.com/gemesa/ghidra-scripts/">Ghidra</a>, <a target="_blank" href="https://github.com/gemesa/reversing-scripts">Python</a>)</li>
-<li>Implemented custom <a target="_blank" href="https://shadowshell.io/phantom-pass/">LLVM-based code obfuscation pass plugins</a> based on malware research</li>
 <li>Evaluated the security impact of reported LLVM vulnerabilities as a <a target="_blank" href="https://github.com/llvm/llvm-project/pull/124142">member of the LLVM security group</a></li>
+<li>Analyzed Windows, Linux and Android <a target="_blank" href="https://shadowshell.io">malware</a>, writing <a target="_blank" href="https://github.com/gemesa/threat-detection-rules">detection rules</a> and config extractors (<a target="_blank" href="https://github.com/gemesa/ghidra-scripts/">Ghidra</a>, <a target="_blank" href="https://github.com/gemesa/reversing-scripts">Python</a>)</li>
+<li>Implemented custom <a target="_blank" href="https://shadowshell.io/phantom-pass/">LLVM-based C++ code obfuscation pass plugins</a> based on malware research</li>
 </ul>
 <h3 id="application-security-engineer---knorr-bremse-rd-center---budapest-hungary---may-2018--jan-2023">Application Security Engineer <location> @ Knorr-Bremse R&amp;D Center - Budapest, Hungary </location> <time> May 2018 – Jan 2023 </time></h3>
 <ul>
-<li>Implemented and evaluated static application security testing across embedded C codebases</li>
-<li>Resolved embedded systems vulnerabilities discovered through code review and AFL++ fuzzing</li>
+<li>Implemented static (Clang-Tidy) and dynamic (Valgrind) application security testing across embedded C codebases</li>
+<li>Used AFL++ fuzzing and code review to discover embedded systems memory corruption vulnerabilities and build PoC exploits</li>
 <li>Built iOS and Android apps for real-time vehicle data visualization</li>
 </ul>
 <h2 id="technical-skills">Technical skills</h2>
@@ -394,7 +396,7 @@ code {
 <p><strong>Reverse engineering (dynamic)</strong>: x64dbg, Sysinternals, LLDB, GDB, Frida, ADB, QEMU, Qiling, VirtualBox, strace</p>
 <p><strong>Detection engineering:</strong> YARA, Sigma, Suricata, capa</p>
 <p><strong>Programming languages:</strong> C, C++, Rust, Objective-C, Swift, Python 3, Java, Assembly (ARM64, x86-64), Bash</p>
-<p><strong>Vulnerability research</strong>: checksec, ROPgadget, AFL++</p>
+<p><strong>Vulnerability research</strong>: AFL++, checksec, ROPgadget, Clang-Tidy, Valgrind</p>
 <p><strong>Network and traffic analysis</strong>: Wireshark, Burp Suite, mitmproxy, Zeek, FakeNet-NG, INetSim</p>
 <p><strong>Platforms and DevOps tools:</strong> Linux (Fedora, Ubuntu), macOS, Windows, Git, Docker, GitHub Actions, Jenkins</p>
 <h2 id="certifications">Certifications</h2>
@@ -410,8 +412,6 @@ code {
 <h2 id="education">Education</h2>
 <h3 id="msc-in-mechatronics-engineering---budapest-university-of-technology-and-economics---feb-2016--june-2018">MSc in Mechatronics Engineering <location> @ <a target="_blank" href="https://www.bme.hu/en">Budapest University of Technology and Economics</a> </location> <time> Feb 2016 – June 2018 </time></h3>
 <h3 id="bsc-in-mechatronics-engineering---university-of-pannonia---sept-2012--jan-2016">BSc in Mechatronics Engineering <location> @ <a target="_blank" href="https://international.uni-pannon.hu/">University of Pannonia</a> </location> <time> Sept 2012 – Jan 2016 </time></h3>
-<h2 id="continuous-education">Continuous education</h2>
-<p>Currently learning on <a target="_blank" href="https://www.mobilehackinglab.com/courses">Mobile Hacking Lab</a> (<a target="_blank" href="https://www.mobilehackinglab.com/course/free-android-application-security-course">Android</a> and <a target="_blank" href="https://www.mobilehackinglab.com/course/free-ios-application-security-course">iOS</a> application security courses).</p>
 
 </body>
 </html>
