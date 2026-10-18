@@ -211,6 +211,6 @@ linkinfo_DLL_injection_shellcode ../tmp/worm.dll
 
 These rules are verified via `sigma check file.yml` but not tested otherwise. Additionally, they are formatted via `npx prettier --write file.yml`.
 
-```
+```yml
 {% include_file external/threat-detection-rules/almanahe/worm.yml %}
 ```
