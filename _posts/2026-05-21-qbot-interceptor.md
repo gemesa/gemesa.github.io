@@ -327,6 +327,7 @@ Based on this, we can gather the functions from the hook descriptor blocks (see 
 Here are the hook functions from the previous chapter that appear in the hook descriptor blocks:
 
 WinInet HTTP interception:
+
 | Hooked API | Hook function | Descriptor table |
 |---|---|---|
 | HttpSendRequestA | `0x1000DFAF` | wininet_hooks |
@@ -340,7 +341,8 @@ WinInet HTTP interception:
 | HttpSendRequestExW | `0x1000E974` | wininet_hooks |
 | InternetWriteFile | `0x1000E9BD` | wininet_hooks |
 
-Winsock connection interception
+Winsock connection interception:
+
 | Hooked API | Hook function | Descriptor table |
 |---|---|---|
 | WSAConnect | `0x1000F01F` | core_hooks |
@@ -349,6 +351,7 @@ Winsock connection interception
 | send | `0x1000F190` | core_hooks |
 
 DNS redirection:
+
 | Hooked API | Hook function | Descriptor table |
 |---|---|---|
 | DnsQuery_A | `0x10002591` | core_hooks |
@@ -356,6 +359,7 @@ DNS redirection:
 | Query_Main | `0x1000267D` | core_hooks |
 
 Firefox NSS/NSPR interception:
+
 | Hooked API | Hook function | Descriptor table |
 |---|---|---|
 | PR_OpenTCPSocket | `0x1000A6EF` | firefox_ssl_hooks |
@@ -364,12 +368,14 @@ Firefox NSS/NSPR interception:
 | PR_Close | `0x1000A70E` | firefox_ssl_hooks |
 
 Keystroke and clipboard capture:
+
 | Hooked API | Hook function | Descriptor table |
 |---|---|---|
 | TranslateMessage | `0x10008EA1` | core_hooks |
 | GetClipboardData | `0x100023D0` | core_hooks |
 
 GetMessage/PeekMessage hooks:
+
 | Hooked API | Hook function | Descriptor table |
 |---|---|---|
 | GetMessageA | `0x10008F57` | message_loop_hooks |
