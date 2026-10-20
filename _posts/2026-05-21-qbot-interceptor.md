@@ -69,7 +69,7 @@ $ sha256sum < payload_64bit.dll
 
 ## Hooking framework
 
-The inline hooking engine lives in the payloads. Both architectures use the same design but there are some minor differences (e.g. because of the different pointer size). These differences are not discussed here. Because of time limitations, only the 32-bit variant is discussed.
+The inline hooking engine lives in the payloads. Both architectures use the same design but there are some minor differences (e.g. because of the different pointer size). These differences are not discussed here. We analyze the 32-bit variant only.
 
 Hook installation: `FUN_10002902_install_hook` loops through 5 encrypted descriptor tables containing DLL/API name pairs. It takes 2 args: number of entries in the table and the address of the table. Each table is an array of the following struct:
 
